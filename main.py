@@ -1,16 +1,36 @@
-# This is a sample Python script.
+from pprint import pprint
+from API.apps import Books, Authors, Genres
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    # Authors
+    authors = Authors.get_all()
+    pprint(authors)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    mark_luts = Authors.get_detail('mark-lutts')
+    pprint(mark_luts)
+
+    mark_luts_books = Authors.get_books(mark_luts['slug'])
+    pprint(mark_luts_books)
+
+    # Books
+    books = Books.get_all()
+    pprint(books)
+
+    generaration_p = Books.get_detail('generation-p-viktor-pelevin')
+    pprint(generaration_p)
+
+    generaration_p_comments = Books.get_comments(generaration_p['slug'])
+    pprint(generaration_p_comments)
+
+    # Genres
+    genres = Genres.get_all()
+    pprint(genres)
+
+    postmodernism = Genres.get_detail('postmodernizm')
+    pprint(postmodernism)
+
+    postmodernism_books = Genres.get_books('postmodernizm')
+    pprint(postmodernism_books)
+
+    postmodernism_authors = Genres.get_authors('postmodernizm')
+    pprint(postmodernism_authors)
