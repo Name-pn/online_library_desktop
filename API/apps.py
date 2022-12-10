@@ -3,7 +3,6 @@ from typing import List
 from API import config
 from API.core import App, GetAllMixin, GetDetailMixin, get_data_from_request
 
-
 class Authors(App, GetAllMixin, GetDetailMixin):
     """
     Реализует взаимодействие с приложением authors.
