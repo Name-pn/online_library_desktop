@@ -2,12 +2,11 @@ import PyQt5.QtWidgets
 import PyQt5.QtGui
 import PyQt5.QtCore
 import componets.VLine
-import componets.Plug
 
 class EnterComponent(PyQt5.QtWidgets.QWidget):
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.hl = PyQt5.QtWidgets.QHBoxLayout(self)
 
         self.buttonUser = PyQt5.QtWidgets.QPushButton("Войти")

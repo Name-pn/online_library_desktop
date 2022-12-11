@@ -8,6 +8,9 @@ import componets.EnterComponent
 import componets.TopComponent
 import forms.EntryForm
 import forms.BookList
+import forms.AuthorList
+import Program.MainWidget
+import forms.MainPage
 import ListElements.BookElement
 import sys
 
@@ -16,23 +19,21 @@ from API.apps import Books, Authors, Genres
 from ListElements.BookElement import BookElement
 
 if __name__ != '__main__':
-    books = Books.get_all()
-    pprint(books)
+    authers = Authors.get_all()
+    pprint(authers)
 
 if __name__ == '__main__':
     app = PyQt5.QtWidgets.QApplication(sys.argv)
-#    QNetworkAccessManager
-# componets.VLine.VLine(100)
-    compComp = componets.UserComponent.UserComponent()
-    comp = componets.TopComponent.TopComponent(compComp)
-    w2 = forms.BookList.BookList(comp)
-
+    #compComp = componets.UserComponent.UserComponent()
+    #comp = componets.TopComponent.TopComponent(compComp)
+    enterComponent = componets.EnterComponent.EnterComponent()
+    topComponent = componets.TopComponent.TopComponent(enterComponent)
+    #w = forms.MainPage.MainPage(topComponent)
+    w = Program.MainWidget.MainWidget()
     #w2.resize(250, 150)
     #w2.move(300, 300)
-    w2.setWindowTitle('Desktop library')
-    icon = PyQt5.QtGui.QIcon('./images/lib.png')
-    w2.setWindowIcon(icon)
-    w2.show()
+
+    w.show()
 
     sys.exit(app.exec_())
 
@@ -41,7 +42,6 @@ if __name__ != '__main__':
     listBooks = [BookElement(book) for book in Books.get_all()]
     scrollArea = PyQt5.QtWidgets.QScrollArea()
     w = listBooks[0]
-
 
     class testW(PyQt5.QtWidgets.QWidget):
         arr = listBooks

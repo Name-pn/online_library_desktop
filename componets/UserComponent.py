@@ -1,7 +1,6 @@
 from PyQt5 import QtGui, QtCore, QtWidgets
 
 from componets.VLine import VLine
-from componets.Plug import Plug
 
 
 class UserComponent(QtWidgets.QWidget):
@@ -19,8 +18,6 @@ class UserComponent(QtWidgets.QWidget):
         self.vline2 = VLine(10, 50)
         self.space = QtWidgets.QSpacerItem(int(self.width() * 2 / 4), 0)
 
-        self.plug = Plug()
-
         self.initUI()
 
     def initUI(self):
@@ -36,5 +33,4 @@ class UserComponent(QtWidgets.QWidget):
         self.hl.addWidget(self.buttonExit)
         self.hl.addSpacerItem(self.space)
 
-        self.hlFirst.addWidget(self.plug)
         self.hlFirst.addLayout(self.hl)
