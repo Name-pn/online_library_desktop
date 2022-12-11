@@ -3,20 +3,19 @@ import pickle
 
 from API.config import STORE_CACHE_FILE
 
-
 class Store:
+    """
+    Хранилище. Представляет собой класс-одиночку, не требует явного инстацирования, оно выполняется автоматически.
+    Доступ к данным реализуется с помощью статического метода data.
+    При инициализации хранилища создается файл, куда сбрасываются данные при его удалении, если такой файл уже
+    существует, то данные из него загружаются в хранилище.
+    """
 
     @staticmethod
-    def get(key: str) -> object or None:
-        return Store.__get_instance().data.get(key)
+    def data() -> dict:
+        """Возвращает данные хранилища в виде словаря"""
 
-    @staticmethod
-    def set(key: str, value) -> None:
-        Store.__get_instance().data[key] = value
-
-    @staticmethod
-    def delete(key: str):
-        del Store.__get_instance().data[key]
+        return Store.__get_instance().__data
 
     __instance = None
 
@@ -28,12 +27,15 @@ class Store:
         return cls.__instance
 
     def __init__(self):
-        self.data = {}
+        self.__data = {}
 
         if os.path.exists(STORE_CACHE_FILE):
             with open(STORE_CACHE_FILE, 'rb') as file:
-                self.data = pickle.load(file)
+                self.__data = pickle.load(file)
+
+        self.file = open(STORE_CACHE_FILE, 'wb')
 
     def __del__(self):
-        with open(STORE_CACHE_FILE, 'wb') as file:
-            pickle.dump(self.data, file)
+        pickle.dump(self.__data, self.file)
+        self.file.close()
+
