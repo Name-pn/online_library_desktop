@@ -1,12 +1,11 @@
-import PyQt5.QtWidgets
-import PyQt5.QtGui
 import PyQt5.QtCore
-import additionWidgets.VLine
-import additionWidgets.Plug
+import PyQt5.QtGui
+import PyQt5.QtWidgets
+
 
 class AccessComponent(PyQt5.QtWidgets.QWidget):
 
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         super().__init__(parent)
 
         self.hl = PyQt5.QtWidgets.QHBoxLayout()
@@ -16,8 +15,8 @@ class AccessComponent(PyQt5.QtWidgets.QWidget):
 
         self.enterToSyte = PyQt5.QtWidgets.QPushButton("Войти")
 
-        self.name = PyQt5.QtWidgets.QTextEdit("Введите логин")
-        self.password = PyQt5.QtWidgets.QTextEdit("Введите пароль")
+        self.nameLabel = PyQt5.QtWidgets.QTextEdit("Введите логин")
+        self.passwordLabel = PyQt5.QtWidgets.QTextEdit("Введите пароль")
 
         self.nameInput = PyQt5.QtWidgets.QTextBrowser()
         self.passwordInput = PyQt5.QtWidgets.QTextBrowser()
@@ -31,8 +30,8 @@ class AccessComponent(PyQt5.QtWidgets.QWidget):
         self.vlLeft.addWidget(self.nameInput)
         self.vlLeft.addWidget(self.passwordInput)
 
-        self.vlRight.addWidget(self.name)
-        self.vlRight.addWidget(self.password)
+        self.vlRight.addWidget(self.nameLabel)
+        self.vlRight.addWidget(self.passwordLabel)
 
         self.hl.addLayout(self.vlLeft)
         self.hl.addLayout(self.vlRight)

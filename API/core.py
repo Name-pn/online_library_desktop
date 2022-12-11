@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List, Literal
+from typing import List, Literal, Optional
 
 import requests
 
@@ -8,14 +8,19 @@ from API.config import API_ROOT
 Method = Literal['GET', 'OPTIONS', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE']
 
 
-def get_data_from_request(url: str, method: Method):
+def get_data_from_request(url: str, method: Method, data: dict = None, with_exception=False):
     """
     :param url: адрес запроса
     :param method: метод запроса
+    :param data: отправляемые данные
+    :param with_exception: если True, при неудачном запросе возникнет исключение Http
     :return: возвращает данные полученные из запроса
     """
 
-    response = requests.request(method, url)
+    response = requests.request(method, url, data=data)
+
+    if with_exception:
+        response.raise_for_status()
 
     return response.json()
 

@@ -1,55 +1,81 @@
-import PyQt5.QtWidgets
-import PyQt5.QtGui
-import PyQt5.QtCore
+from PyQt5 import QtWidgets, QtGui, QtCore
 
 from API.apps import Authors
 
 
-class BookElement(PyQt5.QtWidgets.QWidget):
+class BookElement(QtWidgets.QWidget):
     def __init__(self, properties: dict, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        # Свойства-данные объекта
         self.properties = properties
-        self.vl = PyQt5.QtWidgets.QVBoxLayout(self)
-        self.name = PyQt5.QtWidgets.QTextBrowser()
-        self.name.setText(properties.get('title'))
 
-        self.hl = PyQt5.QtWidgets.QHBoxLayout()
+        # Виджеты-компоненты
+        self.name = QtWidgets.QLabel()
+        self.name.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.name.setText(self.properties.get('title'))
 
-        self.picture = PyQt5.QtWidgets.QLabel()
-        if self.properties.get('cover') is None:
-            self.picture.setPixmap(PyQt5.QtGui.QPixmap('./images/book.png'))
-        else:
-            self.picture.setPixmap(PyQt5.QtGui.QPixmap('./images/book.png')) # todo Загрузить с сервера обложки, вставить в pixmap
+        self.picture = self.initPicture()
 
-        self.vlIn = PyQt5.QtWidgets.QVBoxLayout()
+        self.authorName = self.initAuthorNameLabel()
 
-        self.author = Authors.get_detail(properties.get('author'))
+        self.annotation = QtWidgets.QTextBrowser()
+        self.annotation.setText('Аннотация: ' + self.properties.get('description'))
 
-        self.autherName = PyQt5.QtWidgets.QTextBrowser()
-        self.autherName.setText(self.author.get('name') + ' ' + self.author.get('surname'))
+        self.genres = self.initGenres()
 
-        self.annotation = PyQt5.QtWidgets.QTextBrowser()
-        self.annotation.setText('Аннотация: ' + properties.get('description'))
+        self.date = QtWidgets.QLabel()
+        self.date.setText('Год выпуска: ' + str(self.properties.get('year_of_writing')))
 
-        self.date = PyQt5.QtWidgets.QTextBrowser()
-        self.date.setText('Год выпуска: ' + str(properties.get('year_of_writing')))
+        self.button = QtWidgets.QPushButton('Перейти к описанию')
 
-        self.button = PyQt5.QtWidgets.QPushButton('Перейти к описанию')
+        # Лейауты
+        self.mainLayout = QtWidgets.QVBoxLayout(self)
+        self.infoAndPictureLayout = QtWidgets.QHBoxLayout()
+        self.InfoLayout = QtWidgets.QVBoxLayout()
 
         self.initUI()
 
+    def initAuthorNameLabel(self):
+        author = Authors.get_detail(self.properties.get('author'))
+
+        authorName = QtWidgets.QLabel()
+        authorName.setText(f"Автор: {author.get('name')} {author.get('surname')}")
+
+        return authorName
+
+    def initPicture(self) -> QtWidgets.QLabel:
+        picture = QtWidgets.QLabel()
+
+        if self.properties.get('cover') is None:
+            picture.setPixmap(QtGui.QPixmap('./images/book.png'))
+        else:
+            picture.setPixmap(
+                QtGui.QPixmap('./images/book.png'))  # todo Загрузить с сервера обложки, вставить в pixmap
+
+        return picture
+
+    def initGenres(self):
+        genresNames = [genre['name'].lower() for genre in self.properties['genres']]
+
+        genresLabel = QtWidgets.QLabel()
+        genresLabel.setText('Жанры: ' + ', '.join(genresNames))
+        genresLabel.setWordWrap(True)  # Перенос текста на следующую строку
+
+        return genresLabel
+
     def initUI(self):
-        #self.vl.setAlignment(PyQt5.QtCore.Qt.AlignRight)
-        self.vl.addWidget(self.name)
+        # self.vl.setAlignment(PyQt5.QtCore.Qt.AlignRight)
+        self.mainLayout.addWidget(self.name)
 
-        self.hl.addWidget(self.picture)
+        self.infoAndPictureLayout.addWidget(self.picture)
 
-        self.vlIn.addWidget(self.autherName)
-        self.vlIn.addWidget(self.annotation)
-        self.vlIn.addWidget(self.date)
+        self.InfoLayout.addWidget(self.authorName)
+        self.InfoLayout.addWidget(self.annotation)
+        self.InfoLayout.addWidget(self.genres)
+        self.InfoLayout.addWidget(self.date)
 
+        self.infoAndPictureLayout.addLayout(self.InfoLayout)
 
-        self.hl.addLayout(self.vlIn)
-
-        self.vl.addLayout(self.hl)
-        self.vl.addWidget(self.button)
+        self.mainLayout.addLayout(self.infoAndPictureLayout)
+        self.mainLayout.addWidget(self.button)

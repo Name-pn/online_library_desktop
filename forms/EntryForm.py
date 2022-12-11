@@ -1,16 +1,16 @@
 import PyQt5.QtWidgets
-import additionWidgets.TopComponent
-import additionWidgets.EnterComponent
-import additionWidgets.AccessComponent
+import componets.TopComponent
+import componets.EnterComponent
+import componets.AccessComponent
 
 class EntryForm(PyQt5.QtWidgets.QWidget):
 
-    def __init__(self, topComponent: additionWidgets.TopComponent, parent = None):
+    def __init__(self, topComponent: componets.TopComponent, parent = None):
         super().__init__(parent)
         self.vl = PyQt5.QtWidgets.QVBoxLayout(self)
 
         self.comp = topComponent
-        self.enter = additionWidgets.AccessComponent.AccessComponent()
+        self.enter = componets.AccessComponent.AccessComponent()
 
         self.initUI()
 

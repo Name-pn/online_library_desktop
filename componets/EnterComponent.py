@@ -1,18 +1,18 @@
 import PyQt5.QtWidgets
 import PyQt5.QtGui
 import PyQt5.QtCore
-import additionWidgets.VLine
-import additionWidgets.Plug
+import componets.VLine
+import componets.Plug
 
 class EnterComponent(PyQt5.QtWidgets.QWidget):
 
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         super().__init__(parent)
         self.hl = PyQt5.QtWidgets.QHBoxLayout(self)
 
         self.buttonUser = PyQt5.QtWidgets.QPushButton("Войти")
         self.buttonExit = PyQt5.QtWidgets.QPushButton("Зарегистрироваться")
-        self.vline = additionWidgets.VLine.VLine(10, 50)
+        self.vline = componets.VLine.VLine(10, 50)
 
         self.initUI()
 

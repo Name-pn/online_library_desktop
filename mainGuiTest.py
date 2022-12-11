@@ -3,9 +3,9 @@ import PyQt5.QtGui
 import PyQt5.QtCore
 from PyQt5.QtNetwork import QNetworkAccessManager
 
-import additionWidgets.UserComponent
-import additionWidgets.EnterComponent
-import additionWidgets.TopComponent
+import componets.UserComponent
+import componets.EnterComponent
+import componets.TopComponent
 import forms.EntryForm
 import forms.BookList
 import ListElements.BookElement
@@ -22,9 +22,9 @@ if __name__ != '__main__':
 if __name__ == '__main__':
     app = PyQt5.QtWidgets.QApplication(sys.argv)
 #    QNetworkAccessManager
-# additionWidgets.VLine.VLine(100)
-    compComp = additionWidgets.UserComponent.UserComponent()
-    comp = additionWidgets.TopComponent.TopComponent(compComp)
+# componets.VLine.VLine(100)
+    compComp = componets.UserComponent.UserComponent()
+    comp = componets.TopComponent.TopComponent(compComp)
     w2 = forms.BookList.BookList(comp)
 
     #w2.resize(250, 150)
