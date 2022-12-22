@@ -20,7 +20,9 @@ class EntryForm(PyQt5.QtWidgets.QWidget):
         icon = PyQt5.QtGui.QIcon('./images/lib.png')
         self.setWindowIcon(icon)
 
-        self.setGeometry(0, 0, 100, 150)
+        self.setFixedWidth(400)
+        self.setFixedHeight(300)
+        #self.setGeometry(self.geometry().x(), self.geometry().y(), 100, 150)
         #self.setSizePolicy(PyQt5.QtWidgets.QSizePolicy.Maximum, PyQt5.QtWidgets.QSizePolicy.Maximum)
         #self.setMinimumSize(240, 200)
         #self.setSizePolicy()

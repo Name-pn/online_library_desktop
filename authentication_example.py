@@ -1,15 +1,17 @@
 from requests import HTTPError
 
-from API.apps import Auth, Users
+from API.apps import Auth, Users, Authors
 
 if __name__ == '__main__':
     try:
-        Auth.login('vovan', 'sweetpie')
+        print(Users.get_user_type())
+        Auth.login('simple_user', 'sweetpie')
         print('Вы залогинились')
-
+        print(Users.get_user_type())
         print('Ваши данные')
         print(Users.current())
-
+        print(Authors.get_all())
+        print(Authors.get_detail('mark-lutts'))
         Auth.logout()
         print('Вы разлогинились')
 

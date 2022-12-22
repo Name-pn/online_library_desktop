@@ -38,6 +38,7 @@ class MainPageComponent(PyQt5.QtWidgets.QWidget):
                           "в жизни каждого человека, но и всего человечества в целом. Каждый прочитавший хоть одну книгу, "
                           "будет полностью согласен главной ролью книги.")
         self.font = PyQt5.QtGui.QFont("Helvetica", 12)
+        self.text.setAlignment(PyQt5.QtCore.Qt.AlignJustify)
         self.text.setFont(self.font)
 
         self.quote = PyQt5.QtWidgets.QLabel()

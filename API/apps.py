@@ -1,6 +1,8 @@
+from enum import IntEnum
 from typing import List
 
 import requests
+from requests import HTTPError
 
 from API.auth import TokenAuth
 from API.config import API_ROOT
@@ -66,6 +68,10 @@ class Genres(App, GetAllMixin, GetDetailMixin):
         """
         return get_data_from_request(cls.root_url + f'{genre_slug}/books', 'GET')
 
+class UserTypes(IntEnum):
+    GUEST  = 0
+    READER = 1
+    ADMIN  = 2
 
 class Auth(App):
     root_url = API_ROOT + 'auth/token/'
@@ -82,8 +88,10 @@ class Auth(App):
         response_data = get_data_from_request(cls.root_url + 'login/', 'POST', data={
             'username': login, 'password': password,
         }, with_exception=True)
-
         Store.data()['token'] = response_data['auth_token']
+
+        current_user = Users.current()
+        Store.data()['user'] = int(UserTypes.ADMIN if current_user['is_staff'] else UserTypes.READER)
 
     @classmethod
     def logout(cls) -> None:
@@ -96,7 +104,7 @@ class Auth(App):
         # Используем request напрямую, так как запрос по этому эндпоинту не возвращает данные
         response = requests.post(cls.root_url + 'logout/', auth=cls.get_token())
         response.raise_for_status()
-
+        Store.data()['user'] = None
         Store.data()['token'] = None
 
     @staticmethod
@@ -108,6 +116,13 @@ class Auth(App):
 
 class Users(App):
     root_url = API_ROOT + 'users/'
+
+    @classmethod
+    def get_user_type(cls) -> UserTypes:
+        type = Store.data().get('user')
+        if type is None:
+            return UserTypes.GUEST
+        return UserTypes(type)
 
     @classmethod
     def current(cls) -> dict:

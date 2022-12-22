@@ -24,14 +24,9 @@ if __name__ != '__main__':
 
 if __name__ == '__main__':
     app = PyQt5.QtWidgets.QApplication(sys.argv)
-    #compComp = componets.UserComponent.UserComponent()
-    #comp = componets.TopComponent.TopComponent(compComp)
     enterComponent = componets.EnterComponent.EnterComponent()
     topComponent = componets.TopComponent.TopComponent(enterComponent)
-    #w = forms.MainPage.MainPage(topComponent)
     w = Program.MainWidget.MainWidget()
-    #w2.resize(250, 150)
-    #w2.move(300, 300)
 
     w.show()
 
