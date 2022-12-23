@@ -2,19 +2,23 @@ from PyQt5 import QtGui, QtWidgets, QtCore
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import QLayout, QLabel
 
-from API.apps import Authors
-from ListElements.AuthorElement import AutherElement
+from API.apps import Books
 from Program.Networking import NETWORK_MANAGER
 from componets.ScaledPicture import ScaledPicture
 
-class AuthorPrivatePageComponent(QtWidgets.QWidget):
+class BookDetailComponent(QtWidgets.QWidget):
 
     def __init__(self, slug: str, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        author = Authors.get_detail(slug)
-        name = author.get('name') + ' ' + author.get('surname')
-        imageUrl = author.get('image')
+        book = Books.get_detail(slug)
+        name = book.get('title')
+        imageUrl = book.get('cover')
+        if imageUrl is None:
+            self.picture = ScaledPicture('./images/undefined.png')
+        else:
+            image = NETWORK_MANAGER.httpGetImage(QUrl(imageUrl))
+            self.picture = ScaledPicture('', image)
 
         self.vl = QtWidgets.QVBoxLayout(self)
         self.hlSup = QtWidgets.QHBoxLayout()
@@ -29,7 +33,7 @@ class AuthorPrivatePageComponent(QtWidgets.QWidget):
         else:
             image = NETWORK_MANAGER.httpGetImage(QUrl(imageUrl))
             self.picture = ScaledPicture('', image)
-        self.descriptionText = QtWidgets.QTextEdit(author.get('description'))
+        self.descriptionText = QtWidgets.QTextEdit(book.get('description'))
         self.descriptionText.setAlignment(QtCore.Qt.AlignJustify)
         self.descriptionText.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         self.initUI()

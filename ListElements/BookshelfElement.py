@@ -6,7 +6,7 @@ from API.apps import Authors
 from Program.Networking import NETWORK_MANAGER
 
 
-class BookElement(QtWidgets.QWidget):
+class BookshelfElement(QtWidgets.QWidget):
 
     def paintEvent(self, a0: QtGui.QPaintEvent):
         painter = QtGui.QPainter(self)
@@ -40,7 +40,7 @@ class BookElement(QtWidgets.QWidget):
         self.date = QtWidgets.QLabel()
         self.date.setText('Год выпуска: ' + str(self.properties.get('year_of_writing')))
 
-        self.button = QtWidgets.QPushButton('Перейти к описанию')
+        self.button = QtWidgets.QPushButton('К тексту книги')
 
         self.spacer1 = QtWidgets.QSpacerItem(100, 100)
         self.spacer2 = QtWidgets.QSpacerItem(100, 100)
@@ -85,7 +85,6 @@ class BookElement(QtWidgets.QWidget):
         return genresLabel
 
     def initUI(self):
-        # self.vl.setAlignment(PyQt5.QtCore.Qt.AlignRight)
         self.mainLayout.addWidget(self.name)
 
         self.infoAndPictureLayout.addWidget(self.picture)

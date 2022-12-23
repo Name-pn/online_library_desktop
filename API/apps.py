@@ -9,7 +9,6 @@ from API.config import API_ROOT
 from API.core import App, GetAllMixin, GetDetailMixin, get_data_from_request
 from API.store import Store
 
-
 class Authors(App, GetAllMixin, GetDetailMixin):
     """
     Реализует взаимодействие с приложением authors.
@@ -17,14 +16,6 @@ class Authors(App, GetAllMixin, GetDetailMixin):
     """
 
     root_url = API_ROOT + 'authors/'
-
-    @classmethod
-    def get_books(cls, author_slug: str) -> List[dict]:
-        """
-        :param author_slug: слаг, по которому выполняется поиск автора.
-        :return: возращает список всех книг автора.
-        """
-        return get_data_from_request(cls.root_url + f'{author_slug}/books', 'GET')
 
 
 class Books(App, GetAllMixin, GetDetailMixin):
@@ -35,14 +26,6 @@ class Books(App, GetAllMixin, GetDetailMixin):
 
     root_url = API_ROOT + 'books/'
 
-    @classmethod
-    def get_comments(cls, book_slug: str) -> List[dict]:
-        """
-        :param book_slug: слаг, по которому выполняется поиск книги.
-        :return: возращает список всех комментариев к книге
-        """
-        return get_data_from_request(cls.root_url + f'{book_slug}/comments', 'GET')
-
 
 class Genres(App, GetAllMixin, GetDetailMixin):
     """
@@ -51,22 +34,6 @@ class Genres(App, GetAllMixin, GetDetailMixin):
     """
 
     root_url = API_ROOT + 'genres/'
-
-    @classmethod
-    def get_authors(cls, genre_slug: str) -> List[dict]:
-        """
-        :param genre_slug: слаг, по которому выполняется поиск жанра.
-        :return: возращает список всех авторов, работающих в жанре.
-        """
-        return get_data_from_request(cls.root_url + f'{genre_slug}/authors', 'GET')
-
-    @classmethod
-    def get_books(cls, genre_slug: str) -> List[dict]:
-        """
-        :param genre_slug: слаг, по которому выполняется поиск жанра.
-        :return: возращает список всех книг жанра.
-        """
-        return get_data_from_request(cls.root_url + f'{genre_slug}/books', 'GET')
 
 class UserTypes(IntEnum):
     GUEST  = 0
@@ -123,6 +90,12 @@ class Users(App):
         if type is None:
             return UserTypes.GUEST
         return UserTypes(type)
+
+    @classmethod
+    def get_my_books(cls) -> [dict]:
+        return get_data_from_request(
+            cls.root_url + 'me/readings/', 'GET', with_exception=True, auth=Auth.get_token()
+        )
 
     @classmethod
     def current(cls) -> dict:

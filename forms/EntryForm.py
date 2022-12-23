@@ -22,14 +22,10 @@ class EntryForm(PyQt5.QtWidgets.QWidget):
 
         self.setFixedWidth(400)
         self.setFixedHeight(300)
-        #self.setGeometry(self.geometry().x(), self.geometry().y(), 100, 150)
-        #self.setSizePolicy(PyQt5.QtWidgets.QSizePolicy.Maximum, PyQt5.QtWidgets.QSizePolicy.Maximum)
-        #self.setMinimumSize(240, 200)
-        #self.setSizePolicy()
-        #self.vl.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
         self.vl.addWidget(self.enter)
 
     def closeEvent(self, a0: PyQt5.QtGui.QCloseEvent) -> None:
+        self.enter.reinit()
         self.f()
 
 

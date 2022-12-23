@@ -11,7 +11,7 @@ class MainPageComponent(PyQt5.QtWidgets.QWidget):
         self.vl = PyQt5.QtWidgets.QVBoxLayout(self)
         self.hl = PyQt5.QtWidgets.QHBoxLayout()
 
-        self.pic = componets.ScaledPicture.ScaledPicture('')
+        self.pic = componets.ScaledPicture.ScaledPicture('.\images\imageLib.png')
 
 
         self.text = PyQt5.QtWidgets.QTextBrowser()

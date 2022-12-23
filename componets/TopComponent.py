@@ -16,7 +16,7 @@ class TopComponent(QtWidgets.QWidget):
             self.type = TopDetail.USER
         else:
             self.type = TopDetail.GUEST
-        self.comp = userComponent
+        self.left = userComponent
         self.hl = QtWidgets.QHBoxLayout(self)
         #self.spacer = QtWidgets.QSpacerItem(0, 0)
         #self.spacer2 = QtWidgets.QSpacerItem(0, 0)
@@ -33,7 +33,7 @@ class TopComponent(QtWidgets.QWidget):
     def initUI(self):
         self.setFixedHeight(75)
         #self.hl.setAlignment(QtCore.Qt.AlignLeft)
-        self.hl.addWidget(self.comp)
+        self.hl.addWidget(self.left)
         #self.hl.addSpacerItem(self.spacer)
         self.hl.addWidget(self.refC)
         #self.hl.addSpacerItem(self.spacer2)

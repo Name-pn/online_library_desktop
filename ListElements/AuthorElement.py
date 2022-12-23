@@ -1,6 +1,10 @@
 from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5.QtCore import QUrl
 
 from API.apps import Authors
+from Program.Networking import NETWORK_MANAGER
+from componets.ScaledPicture import ScaledPicture
+
 
 class AutherElement(QtWidgets.QWidget):
 
@@ -42,14 +46,21 @@ class AutherElement(QtWidgets.QWidget):
 
         self.initUI()
 
+    def initButton(self, f):
+        self.button.clicked.connect(lambda: f(self.properties['slug']))
+
     def initPicture(self) -> QtWidgets.QLabel:
         picture = QtWidgets.QLabel()
-
-        if self.properties.get('cover') is None:
+        picture.setMaximumSize(100, 200)
+        if self.properties['image'] is None:
             picture.setPixmap(QtGui.QPixmap('./images/undefined.png').scaled(100, 100))
         else:
-            picture.setPixmap(
-                QtGui.QPixmap('./images/undefined.png'))  # todo Загрузить с сервера обложки, вставить в pixmap
+            image = NETWORK_MANAGER.httpGetImage(QUrl(self.properties['image']))
+            pixmap = QtGui.QPixmap.fromImage(image)
+
+            pixmap = pixmap.scaled(picture.size())
+            picture.setPixmap(pixmap)
+            #picture.setPixmap(QtGui.QPixmap('./images/undefined.png'))  # todo Масштабирование бы поправить
 
 
         return picture

@@ -24,12 +24,8 @@ if __name__ != '__main__':
 
 if __name__ == '__main__':
     app = PyQt5.QtWidgets.QApplication(sys.argv)
-    enterComponent = componets.EnterComponent.EnterComponent()
-    topComponent = componets.TopComponent.TopComponent(enterComponent)
     w = Program.MainWidget.MainWidget()
-
     w.show()
-
     sys.exit(app.exec_())
 
 if __name__ != '__main__':

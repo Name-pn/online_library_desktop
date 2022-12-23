@@ -2,19 +2,20 @@ from PyQt5 import QtGui, QtWidgets, QtCore
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import QLayout, QLabel
 
-from API.apps import Authors
-from ListElements.AuthorElement import AutherElement
+from API.apps import Authors, Users
 from Program.Networking import NETWORK_MANAGER
 from componets.ScaledPicture import ScaledPicture
 
-class AuthorPrivatePageComponent(QtWidgets.QWidget):
+class PrivatePageComponent(QtWidgets.QWidget):
 
-    def __init__(self, slug: str, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        author = Authors.get_detail(slug)
-        name = author.get('name') + ' ' + author.get('surname')
-        imageUrl = author.get('image')
+        user = Users.current()
+        name = user['username']
+        imageUrl = user.get('photo')
+        mail = user['email']
+        staff = user['is_staff']
 
         self.vl = QtWidgets.QVBoxLayout(self)
         self.hlSup = QtWidgets.QHBoxLayout()
@@ -29,16 +30,24 @@ class AuthorPrivatePageComponent(QtWidgets.QWidget):
         else:
             image = NETWORK_MANAGER.httpGetImage(QUrl(imageUrl))
             self.picture = ScaledPicture('', image)
-        self.descriptionText = QtWidgets.QTextEdit(author.get('description'))
-        self.descriptionText.setAlignment(QtCore.Qt.AlignJustify)
-        self.descriptionText.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        self.picture.setBaseSize(200, 100)
+        self.picture.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+        self.mail = QtWidgets.QTextEdit('Электронная почта пользователя: ' + mail)
+        self.mail.setAlignment(QtCore.Qt.AlignJustify)
+        self.mail.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
+        if staff:
+            self.staff = QtWidgets.QTextEdit('Роль пользователя: администратор')
+        else:
+            self.staff = QtWidgets.QTextEdit('Роль пользователя: читатель')
+        self.staff.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
         self.initUI()
 
     def initUI(self):
         self.vl.addWidget(self.name)
         self.hlSup.addWidget(self.picture)
 
-        self.vlSup.addWidget(self.descriptionText)
+        self.vlSup.addWidget(self.mail)
+        self.vlSup.addWidget(self.staff)
         self.hlSup.addLayout(self.vlSup)
 
         self.vl.addLayout(self.hlSup)

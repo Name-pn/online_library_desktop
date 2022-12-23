@@ -33,9 +33,10 @@ class Store:
             with open(STORE_CACHE_FILE, 'rb') as file:
                 self.__data = pickle.load(file)
 
-        self.file = open(STORE_CACHE_FILE, 'wb')
+        #self.file = open(STORE_CACHE_FILE, 'wb')
 
     def __del__(self):
-        pickle.dump(self.__data, self.file)
-        self.file.close()
+        pass
+        #pickle.dump(self.__data, self.file)
+        #self.file.close()
 

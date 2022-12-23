@@ -1,5 +1,8 @@
 from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt5.QtCore import QUrl
 
+from API.apps import Users
+from Program.Networking import NETWORK_MANAGER
 from componets.VLine import VLine
 
 
@@ -10,12 +13,19 @@ class UserComponent(QtWidgets.QWidget):
         self.hlFirst = QtWidgets.QHBoxLayout(self)
         self.hl = QtWidgets.QHBoxLayout()
         self.imageForm = QtWidgets.QLabel("some text")
-        self.image = QtGui.QPixmap(".\images\man.png")
+        properties = Users.current()
+        if properties['photo'] is None:
+            self.image = QtGui.QPixmap(".\images\man.png")
+        else:
+            image = NETWORK_MANAGER.httpGetImage(QUrl(properties['photo']))
+            self.image = QtGui.QPixmap.fromImage(image)
 
         self.buttonUser = QtWidgets.QPushButton("User")
+        self.buttonBooks = QtWidgets.QPushButton("Книжная полка")
         self.buttonExit = QtWidgets.QPushButton("Выйти")
         self.vline = VLine(10, 50)
         self.vline2 = VLine(10, 50)
+        self.vline3 = VLine(10, 50)
         self.space = QtWidgets.QSpacerItem(int(self.width() * 2 / 4), 0)
 
         self.initUI()
@@ -30,6 +40,8 @@ class UserComponent(QtWidgets.QWidget):
         self.hl.addWidget(self.vline)
         self.hl.addWidget(self.buttonUser)
         self.hl.addWidget(self.vline2)
+        self.hl.addWidget(self.buttonBooks)
+        self.hl.addWidget(self.vline3)
         self.hl.addWidget(self.buttonExit)
         self.hl.addSpacerItem(self.space)
 

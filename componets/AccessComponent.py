@@ -46,3 +46,20 @@ class AccessComponent(PyQt5.QtWidgets.QWidget):
         self.vl.addWidget(self.enterToSyte)
 
         self.setLayout(self.vl)
+
+    def reinit(self):
+        self.nameLabel.setText('')
+        self.passwordLabel.setText('')
+        self.statusOutput.setText('Программа ожидает ввод пользователя')
+        self.toWhite()
+
+    def toRed(self):
+        self.statusOutput.setStyleSheet("QTextEdit {background-color: red;}")
+
+    def toGreen(self):
+        self.statusOutput.setStyleSheet("QTextEdit {background-color: green;"
+                                        "color: white;"
+                                        "}")
+
+    def toWhite(self):
+        self.statusOutput.setStyleSheet("QTextEdit {background-color: white;}")

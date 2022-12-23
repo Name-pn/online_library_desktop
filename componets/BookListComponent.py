@@ -1,5 +1,5 @@
 from PyQt5 import QtGui, QtWidgets, QtCore
-from PyQt5.QtWidgets import QLayout
+from PyQt5.QtWidgets import QLayout, QSizePolicy
 
 from API.apps import Books
 from ListElements.BookElement import BookElement
@@ -23,7 +23,9 @@ class BookListComponent(QtWidgets.QWidget):
         layout = QtWidgets.QVBoxLayout(self)
 
         for book_properties in Books.get_all():
-            layout.addWidget(BookElement(book_properties))
+            el = BookElement(book_properties)
+            el.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            layout.addWidget(el)
 
         return layout
 

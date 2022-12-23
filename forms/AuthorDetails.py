@@ -1,18 +1,19 @@
 import PyQt5.QtWidgets
 from componets import TopComponent
+from componets.AuthorPrivatePage import AuthorPrivatePageComponent
 
 
 class AuthorDetails(PyQt5.QtWidgets.QWidget):
 
-    def __init__(self, topComponent: TopComponent, parent=None):
-        super().__init__(parent)
+    def __init__(self, topComponent: TopComponent, slug, *arg, **kwargs):
+        super().__init__(*arg, **kwargs)
         self.vl = PyQt5.QtWidgets.QVBoxLayout(self)
 
-        self.comp = topComponent
-        self.list = AuthorPrivatePage()
+        self.top = topComponent
+        self.list = AuthorPrivatePageComponent(slug)
 
         self.initUI()
 
     def initUI(self):
-        self.vl.addWidget(self.comp)
+        self.vl.addWidget(self.top)
         self.vl.addWidget(self.list)
