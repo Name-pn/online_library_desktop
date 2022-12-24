@@ -11,8 +11,9 @@ class BookListComponent(QtWidgets.QWidget):
 
         self.scrollArea = QtWidgets.QScrollArea()
         self.scrollArea.setParent(self)
-
+        self.array = []
         mainLayout = self.initLayout()
+
 
         self.content = QtWidgets.QWidget()
         self.content.setLayout(mainLayout)
@@ -24,6 +25,7 @@ class BookListComponent(QtWidgets.QWidget):
 
         for book_properties in Books.get_all():
             el = BookElement(book_properties)
+            self.array.append(el)
             el.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
             layout.addWidget(el)
 
@@ -36,3 +38,7 @@ class BookListComponent(QtWidgets.QWidget):
         self.scrollArea.setAlignment(QtCore.Qt.AlignCenter)
         self.scrollArea.setWidget(self.content)
         self.setMinimumSize(self.scrollArea.size())
+
+    def initButtons(self, f):
+        for el in self.array:
+            el.initButton(f)

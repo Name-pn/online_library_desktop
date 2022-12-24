@@ -10,16 +10,8 @@ class Networking:
             request.setUrl(src)
             reply = self.nam.get(request)
             self.loop.exec()
-            #redirectedUrl = reply.attribute(QNetworkRequest.RedirectionTargetAttribute)
-            #redirectedTo = redirectedUrl.toUrl()
-           # if redirectedTo.isValid():
-             #   if redirectedTo != reply.request().url():
-             #       return self.httpGetImage(redirectedTo)
-            #    else:
-            #        print('[NetworkingPrivate] Infinite redirect loop at ' + str(redirectedTo))
-            ##        return QImage()
-            #else:
             img = QImage()
+            
             reader = QImageReader(reply)
             if reply.error() == QNetworkReply.NoError:
                  reader.read(img)

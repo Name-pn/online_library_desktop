@@ -31,16 +31,18 @@ class BookshelfElement(QtWidgets.QWidget):
 
         self.authorName = self.initAuthorNameLabel()
 
-        self.annotation = QtWidgets.QTextBrowser()
-        self.annotation.setText('Аннотация: ' + self.properties.get('description'))
-        self.annotation.setAlignment(QtCore.Qt.AlignJustify)
+        #self.annotation = QtWidgets.QTextBrowser()
+        #self.annotation.setText('Аннотация: ' + self.properties.get('description'))
+        #self.annotation.setAlignment(QtCore.Qt.AlignJustify)
 
         self.genres = self.initGenres()
 
         self.date = QtWidgets.QLabel()
         self.date.setText('Год выпуска: ' + str(self.properties.get('year_of_writing')))
 
-        self.button = QtWidgets.QPushButton('К тексту книги')
+        self.buttonToRead = QtWidgets.QPushButton('К тексту книги')
+        self.buttonToDetails = QtWidgets.QPushButton('К описанию')
+        self.buttonRemove = QtWidgets.QPushButton('Убрать с книжной полки')
 
         self.spacer1 = QtWidgets.QSpacerItem(100, 100)
         self.spacer2 = QtWidgets.QSpacerItem(100, 100)
@@ -90,14 +92,25 @@ class BookshelfElement(QtWidgets.QWidget):
         self.infoAndPictureLayout.addWidget(self.picture)
 
         self.InfoLayout.addWidget(self.authorName)
-        self.InfoLayout.addWidget(self.annotation)
+        #self.InfoLayout.addWidget(self.annotation)
         self.InfoLayout.addWidget(self.genres)
         self.InfoLayout.addWidget(self.date)
 
         self.infoAndPictureLayout.addLayout(self.InfoLayout)
 
         self.mainLayout.addLayout(self.infoAndPictureLayout)
-        self.mainLayout.addWidget(self.button)
+        self.mainLayout.addWidget(self.buttonToRead)
+        self.mainLayout.addWidget(self.buttonToDetails)
+        self.mainLayout.addWidget(self.buttonRemove)
 
         self.mainHLayout.addLayout(self.mainLayout)
         self.mainHLayout.setAlignment(QtCore.Qt.AlignCenter)
+
+    def initButtonToPdf(self, f):
+        self.buttonToRead.clicked.connect(lambda: f(self.properties['file']))
+
+    def initButtonToRemove(self, f):
+        self.buttonRemove.clicked.connect(lambda: f(self.properties['slug']))
+
+    def initButtonToDetails(self, f):
+        self.buttonToDetails.clicked.connect(lambda: f(self.properties['slug']))

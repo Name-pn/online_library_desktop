@@ -1,5 +1,5 @@
 import PyQt5.QtWidgets
-from componets import TopComponent
+from componets import TopComponent, BookDetailsComponent
 
 
 class BookDetails(PyQt5.QtWidgets.QWidget):
@@ -9,10 +9,13 @@ class BookDetails(PyQt5.QtWidgets.QWidget):
         self.vl = PyQt5.QtWidgets.QVBoxLayout(self)
 
         self.top = topComponent
-        self.list = BookDetailsComponent(slug)
+        self.list = BookDetailsComponent.BookDetailComponent(slug)
 
         self.initUI()
 
     def initUI(self):
         self.vl.addWidget(self.top)
         self.vl.addWidget(self.list)
+
+    def initAddButtom(self, f):
+        self.list.initAddButtom(f)

@@ -14,6 +14,9 @@ class BookElement(QtWidgets.QWidget):
         painter.setBrush(brush)
         painter.drawRect(0, 0, self.width(), self.height())
 
+    def initButton(self, f):
+        self.button.clicked.connect(lambda: f(self.properties['slug']))
+
     def __init__(self, properties: dict, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

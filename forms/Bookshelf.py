@@ -19,3 +19,9 @@ class Bookshelf(PyQt5.QtWidgets.QWidget):
 
         self.vl.addWidget(self.top)
         self.vl.addWidget(self.list)
+
+    def initButtonsToPDF(self, f):
+        self.list.initButtonsToPdf(f)
+
+    def initButtonsToDetails(self, f):
+        self.list.initButtonsToDetails(f)

@@ -4,9 +4,9 @@ import PyQt5.QtWidgets
 
 class AccessComponent(PyQt5.QtWidgets.QWidget):
 
-    def __init__(self, parent=None):
+    def __init__(self, f, parent=None):
         super().__init__(parent)
-
+        self.f = f
         self.vl = PyQt5.QtWidgets.QVBoxLayout(self)
         self.hl = PyQt5.QtWidgets.QHBoxLayout()
         self.vlLeft = PyQt5.QtWidgets.QVBoxLayout()
@@ -60,6 +60,7 @@ class AccessComponent(PyQt5.QtWidgets.QWidget):
         self.statusOutput.setStyleSheet("QTextEdit {background-color: green;"
                                         "color: white;"
                                         "}")
+        self.f()
 
     def toWhite(self):
         self.statusOutput.setStyleSheet("QTextEdit {background-color: white;}")

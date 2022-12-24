@@ -1,5 +1,5 @@
 from requests import HTTPError
-from API.apps import Auth, Users, UserTypes
+from API.apps import Auth, Users, UserTypes, Books
 from PyQt5 import QtGui, QtWidgets
 import Program.GlStack
 import componets.UserComponent
@@ -11,7 +11,9 @@ import forms.AuthorList
 import forms.EntryForm
 from API.store import Store
 from forms.AuthorDetails import AuthorDetails
+from forms.BookDetails import BookDetails
 from forms.Bookshelf import Bookshelf
+from forms.PdfViewer import PdfViewer
 from forms.PrivatePage import PrivatePage
 
 
@@ -89,6 +91,7 @@ class MainWidget(QtWidgets.QWidget):
             self.stack.addWidget(self.AListW)
 
             self.BListW = forms.BookList.BookList(self.getTopComponentGuest())
+            self.BListW.initButtons(lambda slug: self.addAndMoveBookD(slug))
             self.stack.addWidget(self.BListW)
 
         else:
@@ -100,6 +103,7 @@ class MainWidget(QtWidgets.QWidget):
             self.stack.addWidget(self.AListW)
 
             self.BListW = forms.BookList.BookList(self.getTopComponentAuth())
+            self.BListW.initButtons(lambda slug: self.addAndMoveBookD(slug))
             self.stack.addWidget(self.BListW)
 
     def reinitTopComponent(self):
@@ -172,6 +176,16 @@ class MainWidget(QtWidgets.QWidget):
         self.addAndMoveBookshelf()
         return
 
+    def CTD_bookshelf_to_details(self, wid, slug):
+        self.stack.removeWidget(wid)
+        self.addAndMoveBookD(slug)
+        return
+
+    def CTD_bookshelf_to_pdf(self, wid, slug):
+        self.stack.removeWidget(wid)
+        self.addAndMoveBookPDF(slug)
+        return
+
     def connectTopWithDelete(self, toDelete):
         if isinstance(toDelete.top.left, componets.UserComponent.UserComponent):
             toDelete.top.left.buttonBooks.clicked.connect(lambda: self.CTD_bookshelf(toDelete))
@@ -198,6 +212,18 @@ class MainWidget(QtWidgets.QWidget):
 
         self.stack.setCurrentIndex(3)
 
+    def addAndMoveBookD(self, slug):
+        type = Users.get_user_type()
+        if type == UserTypes.GUEST:
+            self.addition = BookDetails(self.getTopComponentGuest(True), slug)
+        else:
+            self.addition = BookDetails(self.getTopComponentAuth(True), slug)
+            #self.addition.initAddButtom(lambda slugArg: Books.add_to_bookshelf(slugArg))
+        self.connectTopWithDelete(self.addition)
+        self.stack.addWidget(self.addition)
+
+        self.stack.setCurrentIndex(3)
+
     def addAndMovePrivateP(self):
         self.addition = PrivatePage(self.getTopComponentAuth(True))
         self.connectTopWithDelete(self.addition)
@@ -206,6 +232,14 @@ class MainWidget(QtWidgets.QWidget):
 
     def addAndMoveBookshelf(self):
         self.addition = Bookshelf(self.getTopComponentAuth(True))
+        self.connectTopWithDelete(self.addition)
+        self.addition.initButtonsToDetails(lambda slug: self.CTD_bookshelf_to_details(self.addition, slug))
+        self.addition.initButtonsToPDF(lambda slug: self.CTD_bookshelf_to_pdf(self.addition, slug))
+        self.stack.addWidget(self.addition)
+        self.stack.setCurrentIndex(3)
+
+    def addAndMoveBookPDF(self, url):
+        self.addition = PdfViewer(self.getTopComponentAuth(True), url)
         self.connectTopWithDelete(self.addition)
         self.stack.addWidget(self.addition)
         self.stack.setCurrentIndex(3)

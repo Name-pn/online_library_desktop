@@ -11,8 +11,7 @@ class EntryForm(PyQt5.QtWidgets.QWidget):
         super().__init__(*args, **kwargs)
         self.f = f
         self.vl = PyQt5.QtWidgets.QVBoxLayout(self)
-        self.enter = componets.AccessComponent.AccessComponent()
-
+        self.enter = componets.AccessComponent.AccessComponent(lambda: self.close())
         self.initUI()
 
     def initUI(self):
@@ -27,5 +26,3 @@ class EntryForm(PyQt5.QtWidgets.QWidget):
     def closeEvent(self, a0: PyQt5.QtGui.QCloseEvent) -> None:
         self.enter.reinit()
         self.f()
-
-

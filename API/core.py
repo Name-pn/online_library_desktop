@@ -7,7 +7,6 @@ from API.config import API_ROOT
 
 Method = Literal['GET', 'OPTIONS', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE']
 
-
 def get_data_from_request(url: str, method: Method, with_exception=False, *args, **kwargs):
     """
     :param url: адрес запроса

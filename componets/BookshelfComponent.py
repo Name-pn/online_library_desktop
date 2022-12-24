@@ -11,8 +11,9 @@ class BookshelfComponent(QtWidgets.QWidget):
 
         self.scrollArea = QtWidgets.QScrollArea()
         self.scrollArea.setParent(self)
-
+        self.array = []
         mainLayout = self.initLayout()
+
 
         self.content = QtWidgets.QWidget()
         self.content.setLayout(mainLayout)
@@ -24,7 +25,9 @@ class BookshelfComponent(QtWidgets.QWidget):
 
         for book_properties in Users.get_my_books():
             property = Books.get_detail(book_properties['book'])
-            layout.addWidget(BookshelfElement(property))
+            el = BookshelfElement(property)
+            self.array.append(el)
+            layout.addWidget(el)
 
         return layout
 
@@ -35,3 +38,11 @@ class BookshelfComponent(QtWidgets.QWidget):
         self.scrollArea.setAlignment(QtCore.Qt.AlignCenter)
         self.scrollArea.setWidget(self.content)
         self.setMinimumSize(self.scrollArea.size())
+
+    def initButtonsToPdf(self, f):
+        for el in self.array:
+            el.initButtonToPdf(f)
+
+    def initButtonsToDetails(self, f):
+        for el in self.array:
+            el.initButtonToDetails(f)

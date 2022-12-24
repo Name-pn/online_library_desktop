@@ -20,3 +20,6 @@ class BookList(PyQt5.QtWidgets.QWidget):
 
         self.vl.addWidget(self.comp)
         self.vl.addWidget(self.list)
+
+    def initButtons(self, f):
+        self.list.initButtons(f)

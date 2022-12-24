@@ -26,6 +26,11 @@ class Books(App, GetAllMixin, GetDetailMixin):
 
     root_url = API_ROOT + 'books/'
 
+    @classmethod
+    def add_to_bookshelf(cls, slug):
+        response = requests.post(API_ROOT + 'readings/', slug)
+        response.raise_for_status()
+
 
 class Genres(App, GetAllMixin, GetDetailMixin):
     """
