@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QLayout, QLabel
 
 from API.apps import Books, Authors, Users, UserTypes
 from Program.Networking import NETWORK_MANAGER
-from componets.ScaledPicture import ScaledPicture
+from components.ScaledPicture import ScaledPicture
 
 class BookDetailComponent(QtWidgets.QWidget):
 
@@ -27,12 +27,15 @@ class BookDetailComponent(QtWidgets.QWidget):
         self.name = QLabel()
         self.name.setText(name)
 
-        self.name.setFont(QtGui.QFont("Helvetica", 16))
+        self.name.setFont(QtGui.QFont("Times new roman", 20))
         self.name.setSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
         self.characters1 = QtWidgets.QTextEdit('Год написания: ' + str(self.book.get('year_of_writing')))
         self.characters1.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
+        self.characters1.setFont(QtGui.QFont("Times new roman", 16))
         self.characters2 = QtWidgets.QTextEdit('Автор: ' + author['name'] + ' ' + author['surname'])
+        self.characters2.setFont(QtGui.QFont("Times new roman", 16))
         self.descriptionText = QtWidgets.QTextEdit(self.book.get('description'))
+        self.descriptionText.setFont(QtGui.QFont("Times new roman", 16))
         self.characters2.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
         self.descriptionText.setAlignment(QtCore.Qt.AlignJustify)
         self.descriptionText.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
@@ -52,6 +55,7 @@ class BookDetailComponent(QtWidgets.QWidget):
         user = Users.get_user_type()
         if user != UserTypes.GUEST:
             self.button = QtWidgets.QPushButton('Добавить на книжную полку')
+            self.button.setFont(QtGui.QFont("Times new roman", 12))
             self.vl.addWidget(self.button)
 
 
@@ -59,4 +63,4 @@ class BookDetailComponent(QtWidgets.QWidget):
         self.name.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
     def initAddButtom(self, f):
-        self.button.clicked.connect(f(self.book['slug']))
+        self.button.clicked.connect(lambda: f(self.book['slug']))

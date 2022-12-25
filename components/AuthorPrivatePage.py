@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QLayout, QLabel
 from API.apps import Authors
 from ListElements.AuthorElement import AutherElement
 from Program.Networking import NETWORK_MANAGER
-from componets.ScaledPicture import ScaledPicture
+from components.ScaledPicture import ScaledPicture
 
 class AuthorPrivatePageComponent(QtWidgets.QWidget):
 
@@ -22,7 +22,7 @@ class AuthorPrivatePageComponent(QtWidgets.QWidget):
         self.name = QLabel()
         self.name.setText(name)
 
-        self.name.setFont(QtGui.QFont("Helvetica", 16))
+        self.name.setFont(QtGui.QFont("Times new roman", 20))
         self.name.setSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
         if imageUrl is None:
             self.picture = ScaledPicture('./images/undefined.png')
@@ -32,6 +32,7 @@ class AuthorPrivatePageComponent(QtWidgets.QWidget):
         self.descriptionText = QtWidgets.QTextEdit(author.get('description'))
         self.descriptionText.setAlignment(QtCore.Qt.AlignJustify)
         self.descriptionText.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        self.descriptionText.setFont(QtGui.QFont("Times new roman", 16))
         self.initUI()
 
     def initUI(self):

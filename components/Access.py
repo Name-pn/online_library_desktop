@@ -1,6 +1,8 @@
 import PyQt5.QtCore
 import PyQt5.QtGui
 import PyQt5.QtWidgets
+from PyQt5 import QtGui
+
 
 class AccessComponent(PyQt5.QtWidgets.QWidget):
 
@@ -13,21 +15,40 @@ class AccessComponent(PyQt5.QtWidgets.QWidget):
         self.vlRight = PyQt5.QtWidgets.QVBoxLayout()
 
         self.enterToSyte = PyQt5.QtWidgets.QPushButton("Войти")
+        self.enterToSyte.setFont(QtGui.QFont("Times new roman", 12))
 
         self.nameLabel = PyQt5.QtWidgets.QTextEdit("")
         self.passwordLabel = PyQt5.QtWidgets.QTextEdit("")
-        self.statusLabel = PyQt5.QtWidgets.QTextEdit("")
-        self.statusOutput = PyQt5.QtWidgets.QTextEdit("")
+        self.statusLabel = PyQt5.QtWidgets.QTextBrowser()
+        self.statusOutput = PyQt5.QtWidgets.QTextBrowser()
 
         self.nameInput = PyQt5.QtWidgets.QTextBrowser()
         self.passwordInput = PyQt5.QtWidgets.QTextBrowser()
+
+        self.nameLabel.setAlignment(PyQt5.QtCore.Qt.AlignHCenter)
+        self.statusLabel.setAlignment(PyQt5.QtCore.Qt.AlignVCenter)
+
+        self.nameInput.setAlignment(PyQt5.QtCore.Qt.AlignHCenter)
+        self.passwordInput.setAlignment(PyQt5.QtCore.Qt.AlignHCenter)
+
+        self.passwordLabel.setAlignment(PyQt5.QtCore.Qt.AlignHCenter)
+        self.statusOutput.setAlignment(PyQt5.QtCore.Qt.AlignHCenter)
+
+        self.nameLabel.setFont(QtGui.QFont("Times new roman", 16))
+        self.statusLabel.setFont(QtGui.QFont("Times new roman", 16))
+
+        self.nameInput.setFont(QtGui.QFont("Times new roman", 16))
+        self.passwordInput.setFont(QtGui.QFont("Times new roman", 16))
+
+        self.passwordLabel.setFont(QtGui.QFont("Times new roman", 16))
+        self.statusOutput.setFont(QtGui.QFont("Times new roman", 16))
 
         self.initUI()
 
     def initUI(self):
         self.nameInput.setText("Имя пользователя:")
         self.statusLabel.setText("Статус:")
-        self.statusOutput.setText("Программа ожидает ввод пользователя")
+        self.statusOutput.setText("Ожидаю ввод пользователя")
 
         self.passwordInput.setText("Пароль:")
 
@@ -50,7 +71,9 @@ class AccessComponent(PyQt5.QtWidgets.QWidget):
     def reinit(self):
         self.nameLabel.setText('')
         self.passwordLabel.setText('')
+
         self.statusOutput.setText('Программа ожидает ввод пользователя')
+
         self.toWhite()
 
     def toRed(self):

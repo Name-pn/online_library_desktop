@@ -1,6 +1,7 @@
 import PyQt5
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtCore import QUrl
+from PyQt5.QtWidgets import QSizePolicy
 
 from API.apps import Authors
 from Program.Networking import NETWORK_MANAGER
@@ -24,28 +25,29 @@ class BookshelfElement(QtWidgets.QWidget):
         self.name = QtWidgets.QLabel()
         self.name.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.name.setText(self.properties.get('title'))
-        self.font = QtGui.QFont("Helvetica", 16)
+        self.font = QtGui.QFont("Times new roman", 20)
         self.name.setFont(self.font)
 
         self.picture = self.initPicture()
 
         self.authorName = self.initAuthorNameLabel()
-
-        #self.annotation = QtWidgets.QTextBrowser()
-        #self.annotation.setText('Аннотация: ' + self.properties.get('description'))
-        #self.annotation.setAlignment(QtCore.Qt.AlignJustify)
+        self.authorName.setFont(QtGui.QFont("Times new roman", 16))
 
         self.genres = self.initGenres()
+        self.genres.setFont(QtGui.QFont("Times new roman", 16))
 
         self.date = QtWidgets.QLabel()
         self.date.setText('Год выпуска: ' + str(self.properties.get('year_of_writing')))
+        self.date.setFont(QtGui.QFont("Times new roman", 16))
 
         self.buttonToRead = QtWidgets.QPushButton('К тексту книги')
-        self.buttonToDetails = QtWidgets.QPushButton('К описанию')
-        self.buttonRemove = QtWidgets.QPushButton('Убрать с книжной полки')
+        self.buttonToRead.setFont(QtGui.QFont("Times new roman", 12))
 
-        self.spacer1 = QtWidgets.QSpacerItem(100, 100)
-        self.spacer2 = QtWidgets.QSpacerItem(100, 100)
+        self.buttonToDetails = QtWidgets.QPushButton('К описанию')
+        self.buttonToDetails.setFont(QtGui.QFont("Times new roman", 12))
+
+        self.buttonRemove = QtWidgets.QPushButton('Убрать с книжной полки')
+        self.buttonRemove.setFont(QtGui.QFont("Times new roman", 12))
 
         # Лейауты
         self.mainLayout = QtWidgets.QVBoxLayout()
@@ -109,8 +111,9 @@ class BookshelfElement(QtWidgets.QWidget):
     def initButtonToPdf(self, f):
         self.buttonToRead.clicked.connect(lambda: f(self.properties['file']))
 
-    def initButtonToRemove(self, f):
+    def initButtonToRemove(self, f, g):
         self.buttonRemove.clicked.connect(lambda: f(self.properties['slug']))
+        self.buttonRemove.clicked.connect(lambda: g(self))
 
     def initButtonToDetails(self, f):
         self.buttonToDetails.clicked.connect(lambda: f(self.properties['slug']))

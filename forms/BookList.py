@@ -1,8 +1,8 @@
 import PyQt5
 from PyQt5 import QtWidgets
 
-from componets.BookListComponent import BookListComponent
-from componets.TopComponent import TopComponent
+from components.BookList import BookListComponent
+from components.Top import TopComponent
 
 
 class BookList(PyQt5.QtWidgets.QWidget):

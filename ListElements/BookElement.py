@@ -27,7 +27,7 @@ class BookElement(QtWidgets.QWidget):
         self.name = QtWidgets.QLabel()
         self.name.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.name.setText(self.properties.get('title'))
-        self.font = QtGui.QFont("Helvetica", 16)
+        self.font = QtGui.QFont("Times new roman", 20)
         self.name.setFont(self.font)
 
         self.picture = self.initPicture()
@@ -37,16 +37,16 @@ class BookElement(QtWidgets.QWidget):
         self.annotation = QtWidgets.QTextBrowser()
         self.annotation.setText('Аннотация: ' + self.properties.get('description'))
         self.annotation.setAlignment(QtCore.Qt.AlignJustify)
+        self.annotation.setFont(QtGui.QFont("Times new roman", 16))
 
         self.genres = self.initGenres()
 
         self.date = QtWidgets.QLabel()
         self.date.setText('Год выпуска: ' + str(self.properties.get('year_of_writing')))
+        self.date.setFont(QtGui.QFont("Times new roman", 16))
 
         self.button = QtWidgets.QPushButton('Перейти к описанию')
-
-        self.spacer1 = QtWidgets.QSpacerItem(100, 100)
-        self.spacer2 = QtWidgets.QSpacerItem(100, 100)
+        self.button.setFont(QtGui.QFont("Times new roman", 12))
 
         # Лейауты
         self.mainLayout = QtWidgets.QVBoxLayout()
@@ -61,6 +61,7 @@ class BookElement(QtWidgets.QWidget):
 
         authorName = QtWidgets.QLabel()
         authorName.setText(f"Автор: {author.get('name')} {author.get('surname')}")
+        authorName.setFont(QtGui.QFont("Times new roman", 16))
 
         return authorName
 
@@ -84,11 +85,11 @@ class BookElement(QtWidgets.QWidget):
         genresLabel = QtWidgets.QLabel()
         genresLabel.setText('Жанры: ' + ', '.join(genresNames))
         genresLabel.setWordWrap(True)  # Перенос текста на следующую строку
+        genresLabel.setFont(QtGui.QFont("Times new roman", 16))
 
         return genresLabel
 
     def initUI(self):
-        # self.vl.setAlignment(PyQt5.QtCore.Qt.AlignRight)
         self.mainLayout.addWidget(self.name)
 
         self.infoAndPictureLayout.addWidget(self.picture)

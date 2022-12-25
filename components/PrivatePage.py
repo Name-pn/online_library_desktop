@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QLayout, QLabel
 
 from API.apps import Authors, Users
 from Program.Networking import NETWORK_MANAGER
-from componets.ScaledPicture import ScaledPicture
+from components.ScaledPicture import ScaledPicture
 
 class PrivatePageComponent(QtWidgets.QWidget):
 
@@ -23,8 +23,8 @@ class PrivatePageComponent(QtWidgets.QWidget):
         self.name = QLabel()
         self.name.setText(name)
 
-        self.name.setFont(QtGui.QFont("Helvetica", 16))
-        self.name.setSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
+        self.name.setFont(QtGui.QFont("Times new roman", 20))
+        self.name.setSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         if imageUrl is None:
             self.picture = ScaledPicture('./images/undefined.png')
         else:
@@ -35,11 +35,13 @@ class PrivatePageComponent(QtWidgets.QWidget):
         self.mail = QtWidgets.QTextEdit('Электронная почта пользователя: ' + mail)
         self.mail.setAlignment(QtCore.Qt.AlignJustify)
         self.mail.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
+        self.mail.setFont(QtGui.QFont("Times new roman", 16))
         if staff:
             self.staff = QtWidgets.QTextEdit('Роль пользователя: администратор')
         else:
             self.staff = QtWidgets.QTextEdit('Роль пользователя: читатель')
         self.staff.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
+        self.staff.setFont(QtGui.QFont("Times new roman", 16))
         self.initUI()
 
     def initUI(self):

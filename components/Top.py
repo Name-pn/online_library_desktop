@@ -1,7 +1,8 @@
 from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt5.QtWidgets import QSizePolicy
 
-from componets.UserComponent import UserComponent
-from componets.RefComponent import RefComponent
+from components.User import UserComponent
+from components.Ref import RefComponent
 from enum import Enum
 
 
@@ -18,8 +19,6 @@ class TopComponent(QtWidgets.QWidget):
             self.type = TopDetail.GUEST
         self.left = userComponent
         self.hl = QtWidgets.QHBoxLayout(self)
-        #self.spacer = QtWidgets.QSpacerItem(0, 0)
-        #self.spacer2 = QtWidgets.QSpacerItem(0, 0)
         self.refC = RefComponent()
 
         self.initUI()
@@ -31,10 +30,8 @@ class TopComponent(QtWidgets.QWidget):
         painter.drawRect(0, 0, self.width(), self.height())
 
     def initUI(self):
-        self.setFixedHeight(75)
-        #self.hl.setAlignment(QtCore.Qt.AlignLeft)
+        #self.setFixedHeight(75)
         self.hl.addWidget(self.left)
-        #self.hl.addSpacerItem(self.spacer)
         self.hl.addWidget(self.refC)
-        #self.hl.addSpacerItem(self.spacer2)
+        self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
 

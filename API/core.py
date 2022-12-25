@@ -19,8 +19,9 @@ def get_data_from_request(url: str, method: Method, with_exception=False, *args,
 
     if with_exception:
         response.raise_for_status()
-
-    return response.json()
+    if method != 'DELETE':
+        return response.json()
+    return response
 
 
 class AbstractApp(ABC):

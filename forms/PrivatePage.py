@@ -1,8 +1,8 @@
 import PyQt5
 from PyQt5 import QtWidgets
 
-from componets.PrivatePageComponent import PrivatePageComponent
-from componets.TopComponent import TopComponent
+from components.PrivatePage import PrivatePageComponent
+from components.Top import TopComponent
 
 
 class PrivatePage(PyQt5.QtWidgets.QWidget):

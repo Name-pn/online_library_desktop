@@ -1,15 +1,20 @@
 from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QFont, QCursor
+import PyQt5.QtGui
 
 from API.apps import Users
 from Program.Networking import NETWORK_MANAGER
-from componets.VLine import VLine
+from components.VLine import VLine
 
 
 class UserComponent(QtWidgets.QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+        curs = QtGui.QCursor()
+        curs.setShape(PyQt5.QtCore.Qt.CursorShape.PointingHandCursor)
+
         self.hlFirst = QtWidgets.QHBoxLayout(self)
         self.hl = QtWidgets.QHBoxLayout()
         self.imageForm = QtWidgets.QLabel("some text")
@@ -21,8 +26,17 @@ class UserComponent(QtWidgets.QWidget):
             self.image = QtGui.QPixmap.fromImage(image)
 
         self.buttonUser = QtWidgets.QPushButton("User")
+        self.buttonUser.setFont(QFont('Times new roman', 12))
+        self.buttonUser.setCursor(curs)
+
         self.buttonBooks = QtWidgets.QPushButton("Книжная полка")
+        self.buttonBooks.setFont(QFont('Times new roman', 12))
+        self.buttonBooks.setCursor(curs)
+
         self.buttonExit = QtWidgets.QPushButton("Выйти")
+        self.buttonExit.setFont(QFont('Times new roman', 12))
+        self.buttonExit.setCursor(curs)
+
         self.vline = VLine(10, 50)
         self.vline2 = VLine(10, 50)
         self.vline3 = VLine(10, 50)

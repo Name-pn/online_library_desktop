@@ -28,8 +28,15 @@ class Books(App, GetAllMixin, GetDetailMixin):
 
     @classmethod
     def add_to_bookshelf(cls, slug):
-        response = requests.post(API_ROOT + 'readings/', slug)
-        response.raise_for_status()
+        response = requests.post(API_ROOT + 'readings/', data={'book': slug}, auth=Auth.get_token())
+        if response.status_code != 400:
+            response.raise_for_status()
+
+    @classmethod
+    def remove_from_bookshelf(cls, slug):
+        user = Users.current()
+        response = get_data_from_request(API_ROOT + 'readings/', 'GET', params={'book': slug, 'user': user['username']}, auth=Auth.get_token())
+        get_data_from_request(API_ROOT + 'readings/' + str(response[0]['id']) + '/', 'DELETE', True,  auth=Auth.get_token()),
 
 
 class Genres(App, GetAllMixin, GetDetailMixin):

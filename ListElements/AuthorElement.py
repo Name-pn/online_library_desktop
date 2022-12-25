@@ -1,10 +1,7 @@
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtCore import QUrl
 
-from API.apps import Authors
 from Program.Networking import NETWORK_MANAGER
-from componets.ScaledPicture import ScaledPicture
-
 
 class AutherElement(QtWidgets.QWidget):
 
@@ -24,7 +21,7 @@ class AutherElement(QtWidgets.QWidget):
         self.name = QtWidgets.QLabel()
         self.name.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.name.setText(self.properties.get('name') + ' ' + self.properties.get('surname'))
-        self.font = QtGui.QFont("Helvetica", 16)
+        self.font = QtGui.QFont("Times new roman", 16)
         self.name.setFont(self.font)
 
         self.picture = self.initPicture()
@@ -32,11 +29,10 @@ class AutherElement(QtWidgets.QWidget):
         self.annotation = QtWidgets.QTextBrowser()
         self.annotation.setText('Описание: ' + self.properties.get('description'))
         self.annotation.setAlignment(QtCore.Qt.AlignJustify)
+        self.annotation.setFont(QtGui.QFont("Times new roman", 16))
 
         self.button = QtWidgets.QPushButton('Перейти к личной странице')
-
-        self.spacer1 = QtWidgets.QSpacerItem(100, 100)
-        self.spacer2 = QtWidgets.QSpacerItem(100, 100)
+        self.button.setFont(QtGui.QFont("Times new roman", 12))
 
         # Лейауты
         self.mainLayout = QtWidgets.QVBoxLayout()

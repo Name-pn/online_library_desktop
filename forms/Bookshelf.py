@@ -1,8 +1,8 @@
 import PyQt5
 from PyQt5 import QtWidgets
 
-from componets.BookshelfComponent import BookshelfComponent
-from componets.TopComponent import TopComponent
+from components.Bookshelf import BookshelfComponent
+from components.Top import TopComponent
 
 class Bookshelf(PyQt5.QtWidgets.QWidget):
 
@@ -25,3 +25,6 @@ class Bookshelf(PyQt5.QtWidgets.QWidget):
 
     def initButtonsToDetails(self, f):
         self.list.initButtonsToDetails(f)
+
+    def initButtonsToRemove(self, f):
+        self.list.initButtonsToRemove(f)

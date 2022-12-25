@@ -3,9 +3,9 @@ import PyQt5.QtGui
 import PyQt5.QtCore
 from PyQt5.QtNetwork import QNetworkAccessManager
 
-import componets.UserComponent
-import componets.EnterComponent
-import componets.TopComponent
+import components.User
+import components.Enter
+import components.Top
 import forms.EntryForm
 import forms.BookList
 import forms.AuthorList

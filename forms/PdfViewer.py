@@ -1,8 +1,8 @@
 import PyQt5
 from PyQt5 import QtWidgets
 
-from componets.PdfViewerComponent import PdfViewerComponent
-from componets.TopComponent import TopComponent
+from components.PdfViewer import PdfViewerComponent
+from components.Top import TopComponent
 
 class PdfViewer(PyQt5.QtWidgets.QWidget):
 

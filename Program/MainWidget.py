@@ -2,9 +2,9 @@ from requests import HTTPError
 from API.apps import Auth, Users, UserTypes, Books
 from PyQt5 import QtGui, QtWidgets
 import Program.GlStack
-import componets.UserComponent
-import componets.EnterComponent
-import componets.TopComponent
+import components.User
+import components.Enter
+import components.Top
 import forms.MainPage
 import forms.BookList
 import forms.AuthorList
@@ -19,7 +19,7 @@ from forms.PrivatePage import PrivatePage
 
 class MainWidget(QtWidgets.QWidget):
     def getTopComponentGuest(self, withoutConnect: bool = False):
-        a = componets.TopComponent.TopComponent(componets.EnterComponent.EnterComponent())
+        a = components.Top.TopComponent(components.Enter.EnterComponent())
         if not withoutConnect:
             a.left.buttonUser.clicked.connect(self.toLogin)
             a.refC.main.clicked.connect(self.toMainMove)
@@ -30,7 +30,7 @@ class MainWidget(QtWidgets.QWidget):
         return a
 
     def getTopComponentAuth(self, withoutConnect: bool = False):
-        a = componets.TopComponent.TopComponent(componets.UserComponent.UserComponent())
+        a = components.Top.TopComponent(components.User.UserComponent())
         user = Users.current()
         a.left.buttonUser.setText(user['username'])
         if not withoutConnect:
@@ -187,7 +187,7 @@ class MainWidget(QtWidgets.QWidget):
         return
 
     def connectTopWithDelete(self, toDelete):
-        if isinstance(toDelete.top.left, componets.UserComponent.UserComponent):
+        if isinstance(toDelete.top.left, components.User.UserComponent):
             toDelete.top.left.buttonBooks.clicked.connect(lambda: self.CTD_bookshelf(toDelete))
             toDelete.top.left.buttonUser.clicked.connect(lambda: self.CTD_user(toDelete))
             toDelete.top.left.buttonExit.clicked.connect(lambda: self.CTD1(toDelete))
@@ -218,7 +218,7 @@ class MainWidget(QtWidgets.QWidget):
             self.addition = BookDetails(self.getTopComponentGuest(True), slug)
         else:
             self.addition = BookDetails(self.getTopComponentAuth(True), slug)
-            #self.addition.initAddButtom(lambda slugArg: Books.add_to_bookshelf(slugArg))
+            self.addition.initAddButtom(lambda slugArg: Books.add_to_bookshelf(slugArg))
         self.connectTopWithDelete(self.addition)
         self.stack.addWidget(self.addition)
 
@@ -230,11 +230,13 @@ class MainWidget(QtWidgets.QWidget):
         self.stack.addWidget(self.addition)
         self.stack.setCurrentIndex(3)
 
+
     def addAndMoveBookshelf(self):
         self.addition = Bookshelf(self.getTopComponentAuth(True))
         self.connectTopWithDelete(self.addition)
         self.addition.initButtonsToDetails(lambda slug: self.CTD_bookshelf_to_details(self.addition, slug))
         self.addition.initButtonsToPDF(lambda slug: self.CTD_bookshelf_to_pdf(self.addition, slug))
+        self.addition.initButtonsToRemove(lambda slug: Books.remove_from_bookshelf(slug))
         self.stack.addWidget(self.addition)
         self.stack.setCurrentIndex(3)
 

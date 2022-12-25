@@ -1,8 +1,8 @@
 import PyQt5
 from PyQt5 import QtWidgets
 
-from componets.MainPageComponent import MainPageComponent
-from componets.TopComponent import TopComponent
+from components.MainPage import MainPageComponent
+from components.Top import TopComponent
 
 class MainPage(PyQt5.QtWidgets.QWidget):
 
