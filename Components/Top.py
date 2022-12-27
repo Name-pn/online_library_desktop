@@ -1,8 +1,8 @@
 from PyQt6 import QtGui, QtCore, QtWidgets
 from PyQt6.QtWidgets import QSizePolicy
 
-from components.User import UserComponent
-from components.Ref import RefComponent
+from Components.User import UserComponent
+from Components.Ref import RefComponent
 from enum import Enum
 
 

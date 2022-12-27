@@ -3,7 +3,7 @@ from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtGui import QFont
 from PyQt6.QtGui import QCursor
 
-from components.VLine import VLine
+from Components.VLine import VLine
 
 
 class RefComponent(QtWidgets.QWidget):

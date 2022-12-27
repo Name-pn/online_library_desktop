@@ -2,23 +2,23 @@ from PyQt6.QtWidgets import QSizePolicy
 from requests import HTTPError
 from API.apps import Auth, Users, UserTypes, Books
 from PyQt6 import QtGui, QtWidgets
-import components.User
-import components.Enter
-import components.Top
-import forms.MainPage
-import forms.BookList
-import forms.AuthorList
-import forms.EntryForm
-from forms.AuthorDetails import AuthorDetails
-from forms.BookDetails import BookDetails
-from forms.Bookshelf import Bookshelf
-from forms.PdfViewer import PdfViewer
-from forms.PrivatePage import PrivatePage
+import Components.User
+import Components.Enter
+import Components.Top
+import Forms.MainPage
+import Forms.BookList
+import Forms.AuthorList
+import Forms.EntryForm
+from Forms.AuthorDetails import AuthorDetails
+from Forms.BookDetails import BookDetails
+from Forms.Bookshelf import Bookshelf
+from Forms.PdfViewer import PdfViewer
+from Forms.PrivatePage import PrivatePage
 
 
 class MainWidget(QtWidgets.QWidget):
     def getTopComponentGuest(self, withoutConnect: bool = False):
-        a = components.Top.TopComponent(components.Enter.EnterComponent())
+        a = Components.Top.TopComponent(Components.Enter.EnterComponent())
         if not withoutConnect:
             a.left.buttonUser.clicked.connect(self.toLogin)
             a.refC.main.clicked.connect(self.toMainMove)
@@ -29,7 +29,7 @@ class MainWidget(QtWidgets.QWidget):
         return a
 
     def getTopComponentAuth(self, withoutConnect: bool = False):
-        a = components.Top.TopComponent(components.User.UserComponent())
+        a = Components.Top.TopComponent(Components.User.UserComponent())
         user = Users.current()
         a.left.buttonUser.setText(user['username'])
         if not withoutConnect:
@@ -54,7 +54,7 @@ class MainWidget(QtWidgets.QWidget):
         self.vl = QtWidgets.QVBoxLayout()
 
         # Окно входа
-        self.enterWidget = forms.EntryForm.EntryForm(lambda: self.setEnabled(True))
+        self.enterWidget = Forms.EntryForm.EntryForm(lambda: self.setEnabled(True))
         self.enterWidget.enter.enterToSyte.clicked.connect(self.runLogin)
         self.initStack()
 
@@ -81,26 +81,26 @@ class MainWidget(QtWidgets.QWidget):
     def initStack(self):
         type = Users.get_user_type()
         if type == UserTypes.GUEST:
-            self.mainW = forms.MainPage.MainPage(self.getTopComponentGuest())
+            self.mainW = Forms.MainPage.MainPage(self.getTopComponentGuest())
             self.stack.addWidget(self.mainW)
 
-            self.AListW = forms.AuthorList.AuthorList(self.getTopComponentGuest())
+            self.AListW = Forms.AuthorList.AuthorList(self.getTopComponentGuest())
             self.AListW.initButtons(lambda slug: self.addAndMoveAuthorD(slug))
             self.stack.addWidget(self.AListW)
 
-            self.BListW = forms.BookList.BookList(self.getTopComponentGuest())
+            self.BListW = Forms.BookList.BookList(self.getTopComponentGuest())
             self.BListW.initButtons(lambda slug: self.addAndMoveBookD(slug))
             self.stack.addWidget(self.BListW)
 
         else:
-            self.mainW = forms.MainPage.MainPage(self.getTopComponentAuth())
+            self.mainW = Forms.MainPage.MainPage(self.getTopComponentAuth())
             self.stack.addWidget(self.mainW)
 
-            self.AListW = forms.AuthorList.AuthorList(self.getTopComponentAuth())
+            self.AListW = Forms.AuthorList.AuthorList(self.getTopComponentAuth())
             self.AListW.initButtons(lambda slug: self.addAndMoveAuthorD(slug))
             self.stack.addWidget(self.AListW)
 
-            self.BListW = forms.BookList.BookList(self.getTopComponentAuth())
+            self.BListW = Forms.BookList.BookList(self.getTopComponentAuth())
             self.BListW.initButtons(lambda slug: self.addAndMoveBookD(slug))
             self.stack.addWidget(self.BListW)
 
@@ -202,7 +202,7 @@ class MainWidget(QtWidgets.QWidget):
         return
 
     def connectTopWithDelete(self, toDelete):
-        if isinstance(toDelete.top.left, components.User.UserComponent):
+        if isinstance(toDelete.top.left, Components.User.UserComponent):
             toDelete.top.left.buttonBooks.clicked.connect(lambda: self.CTD_bookshelf(toDelete))
             toDelete.top.left.buttonUser.clicked.connect(lambda: self.CTD_user(toDelete))
             toDelete.top.left.buttonExit.clicked.connect(lambda: self.CTD1(toDelete))

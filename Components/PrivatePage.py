@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QLayout, QLabel
 
 from API.apps import Authors, Users
 from Program.Networking import NETWORK_MANAGER
-from components.ScaledPicture import ScaledPicture
+from Components.ScaledPicture import ScaledPicture
 
 class PrivatePageComponent(QtWidgets.QWidget):
 

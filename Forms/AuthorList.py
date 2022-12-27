@@ -1,23 +1,22 @@
 import PyQt6
 from PyQt6 import QtWidgets
 
-from components.BookWidget import BookWidget
-from components.Top import TopComponent
+from Components.BookList import BookListComponent
+from Components.AuthorList import AuthorListComponent
+from Components.Top import TopComponent
 
 
-class BookList(PyQt6.QtWidgets.QWidget):
+class AuthorList(PyQt6.QtWidgets.QWidget):
 
     def __init__(self, topComponent: TopComponent, parent=None):
         super().__init__(parent)
         self.vl = PyQt6.QtWidgets.QVBoxLayout(self)
-
         self.comp = topComponent
-        self.list = BookWidget()
-
+        self.list = AuthorListComponent()
         self.initUI()
+        self.array = self.list.array
 
     def initUI(self):
-
         self.vl.addWidget(self.comp)
         self.vl.addWidget(self.list)
 

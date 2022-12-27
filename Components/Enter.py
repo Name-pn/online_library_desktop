@@ -1,7 +1,7 @@
 import PyQt6.QtWidgets
 import PyQt6.QtGui
 import PyQt6.QtCore
-import components.VLine
+import Components.VLine
 
 class EnterComponent(PyQt6.QtWidgets.QWidget):
 

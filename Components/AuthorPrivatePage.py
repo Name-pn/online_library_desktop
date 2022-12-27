@@ -4,8 +4,8 @@ from PyQt6.QtWidgets import QLayout, QLabel
 
 from API.apps import Authors
 from Program.Networking import NETWORK_MANAGER
-from components.AuthorBookList import AuthorBookList
-from components.ScaledPicture import ScaledPicture
+from Components.AuthorBookList import AuthorBookList
+from Components.ScaledPicture import ScaledPicture
 
 class AuthorPrivatePageComponent(QtWidgets.QWidget):
 

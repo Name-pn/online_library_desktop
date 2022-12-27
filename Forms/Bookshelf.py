@@ -1,8 +1,8 @@
 import PyQt6
 from PyQt6 import QtWidgets
 
-from components.Bookshelf import BookshelfComponent
-from components.Top import TopComponent
+from Components.Bookshelf import BookshelfComponent
+from Components.Top import TopComponent
 
 class Bookshelf(PyQt6.QtWidgets.QWidget):
 

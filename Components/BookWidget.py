@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QWidget, QHBoxLayout, QSizePolicy
 
-from components.BookSorter import BookSorter
-from components.BookList import BookListComponent
+from Components.BookSorter import BookSorter
+from Components.BookList import BookListComponent
 
 
 class BookWidget(QWidget):

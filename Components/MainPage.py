@@ -1,8 +1,8 @@
 import PyQt6.QtWidgets
 import PyQt6.QtGui
 import PyQt6.QtCore
-import components.VLine
-import components.ScaledPicture
+import Components.VLine
+import Components.ScaledPicture
 
 class MainPageComponent(PyQt6.QtWidgets.QWidget):
 
@@ -11,7 +11,7 @@ class MainPageComponent(PyQt6.QtWidgets.QWidget):
         self.vl = PyQt6.QtWidgets.QVBoxLayout(self)
         self.hl = PyQt6.QtWidgets.QHBoxLayout()
 
-        self.pic = components.ScaledPicture.ScaledPicture('.\images\imageLib.png')
+        self.pic = Components.ScaledPicture.ScaledPicture('.\images\imageLib.png')
 
         self.text = PyQt6.QtWidgets.QTextBrowser()
         self.text.setText("Книга играет огромную и наиболее важную роль в жизни человека. В давние времена книга считалась бесценным источником информации,"

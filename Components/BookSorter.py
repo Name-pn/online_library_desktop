@@ -5,8 +5,8 @@ from PyQt6.QtWidgets import QWidget, QListWidget, QDateEdit, QVBoxLayout, QDateT
 
 import Program.Constrains
 from API.apps import Genres
-from components.BookList import TypeUpdateListBook
-from components.MultiFilter import MultiFilter, myItem
+from Components.BookList import TypeUpdateListBook
+from Components.MultiFilter import MultiFilter, myItem
 
 
 class Communicate(QObject):

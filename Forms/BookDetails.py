@@ -1,19 +1,21 @@
 import PyQt6.QtWidgets
-from components import Top
-from components.AuthorPrivatePage import AuthorPrivatePageComponent
+
+from Components import BookDetail, Top
 
 
-class AuthorDetails(PyQt6.QtWidgets.QWidget):
-
+class BookDetails(PyQt6.QtWidgets.QWidget):
     def __init__(self, topComponent: Top, slug, *arg, **kwargs):
         super().__init__(*arg, **kwargs)
         self.vl = PyQt6.QtWidgets.QVBoxLayout(self)
 
         self.top = topComponent
-        self.list = AuthorPrivatePageComponent(slug)
+        self.list = BookDetail.BookDetailComponent(slug)
 
         self.initUI()
 
     def initUI(self):
         self.vl.addWidget(self.top)
         self.vl.addWidget(self.list)
+
+    def initAddButtom(self, f):
+        self.list.initAddButtom(f)

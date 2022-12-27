@@ -2,10 +2,10 @@ from PyQt6 import QtGui, QtWidgets, QtCore
 from PyQt6.QtCore import QUrl, Qt
 from PyQt6.QtWidgets import QLayout, QLabel, QSizePolicy
 
-import components.Comments
+import Components.Comments
 from API.apps import Books, Authors, Users, UserTypes
 from Program.Networking import NETWORK_MANAGER
-from components.ScaledPicture import ScaledPicture
+from Components.ScaledPicture import ScaledPicture
 
 class BookDetailComponent(QtWidgets.QWidget):
 
@@ -42,7 +42,7 @@ class BookDetailComponent(QtWidgets.QWidget):
         self.descriptionText.setAlignment(QtCore.Qt.AlignmentFlag.AlignJustify)
         self.descriptionText.setSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Minimum)
         self.user = Users.get_user_type()
-        self.comments = components.Comments.Comments(slug, self.user)
+        self.comments = Components.Comments.Comments(slug, self.user)
         self.initUI()
 
     def initUI(self):

@@ -1,9 +1,9 @@
 import PyQt6.QtWidgets
 import PyQt6.QtGui
 import PyQt6.QtCore
-import components.Top
-import components.Enter
-import components.Access
+import Components.Top
+import Components.Enter
+import Components.Access
 
 class EntryForm(PyQt6.QtWidgets.QWidget):
 
@@ -11,7 +11,7 @@ class EntryForm(PyQt6.QtWidgets.QWidget):
         super().__init__(*args, **kwargs)
         self.f = f
         self.vl = PyQt6.QtWidgets.QVBoxLayout(self)
-        self.enter = components.Access.AccessComponent(lambda: self.close())
+        self.enter = Components.Access.AccessComponent(lambda: self.close())
         self.initUI()
 
     def initUI(self):

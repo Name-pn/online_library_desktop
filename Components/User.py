@@ -5,7 +5,7 @@ import PyQt6.QtGui
 
 from API.apps import Users
 from Program.Networking import NETWORK_MANAGER
-from components.VLine import VLine
+from Components.VLine import VLine
 
 
 class UserComponent(QtWidgets.QWidget):
