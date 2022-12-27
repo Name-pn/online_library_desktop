@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QSizePolicy
 from requests import HTTPError
-from API.apps import Auth, Users, UserTypes, Books
+from API.apps import Auth, Users, UserTypes, Books, Readings
 from PyQt6 import QtGui, QtWidgets
 import Components.User
 import Components.Enter
@@ -233,7 +233,7 @@ class MainWidget(QtWidgets.QWidget):
             self.addition = BookDetails(self.getTopComponentGuest(True), slug)
         else:
             self.addition = BookDetails(self.getTopComponentAuth(True), slug)
-            self.addition.initAddButtom(lambda slugArg: Books.add_to_bookshelf(slugArg))
+            self.addition.initAddButtom(lambda slugArg: Readings.add_to_bookshelf(slugArg))
         self.connectTopWithDelete(self.addition)
         self.stack.addWidget(self.addition)
 
@@ -251,7 +251,7 @@ class MainWidget(QtWidgets.QWidget):
         self.connectTopWithDelete(self.addition)
         self.addition.initButtonsToDetails(lambda slug: self.CTD_bookshelf_to_details(self.addition, slug))
         self.addition.initButtonsToPDF(lambda slug: self.CTD_bookshelf_to_pdf(self.addition, slug))
-        self.addition.initButtonsToRemove(lambda slug: Books.remove_from_bookshelf(slug))
+        self.addition.initButtonsToRemove(lambda slug: Readings.remove_from_bookshelf(slug))
         self.stack.addWidget(self.addition)
         self.stack.setCurrentIndex(3)
 
