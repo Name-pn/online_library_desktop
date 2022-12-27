@@ -45,9 +45,9 @@ class Comments(QWidget):
         self.list.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
         self.list.setFont(QtGui.QFont("Times new roman", 16))
         self.list.setIconSize(QSize(50, 50))
-        self.iconGreen = QIcon('./images/ComLabelGreen.png')
-        self.iconYellow = QIcon('./images/ComLabelYellow.png')
-        self.iconRed = QIcon('./images/ComLabelRed.png')
+        self.iconGreen = QIcon('./Images/ComLabelGreen.png')
+        self.iconYellow = QIcon('./Images/ComLabelYellow.png')
+        self.iconRed = QIcon('./Images/ComLabelRed.png')
         self.initList()
         if self.user != API.apps.UserTypes.GUEST:
             self.initCommentPost()

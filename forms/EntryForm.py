@@ -16,7 +16,7 @@ class EntryForm(PyQt6.QtWidgets.QWidget):
 
     def initUI(self):
         self.setWindowTitle('Форма входа')
-        icon = PyQt6.QtGui.QIcon('./images/lib.png')
+        icon = PyQt6.QtGui.QIcon('./Images/lib.png')
         self.setWindowIcon(icon)
 
         self.setFixedWidth(400)

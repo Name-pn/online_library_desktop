@@ -25,7 +25,7 @@ class AuthorPrivatePageComponent(QtWidgets.QWidget):
         self.name.setFont(QtGui.QFont("Times new roman", 20))
         self.name.setSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
         if imageUrl is None:
-            self.picture = ScaledPicture('./images/undefined.png')
+            self.picture = ScaledPicture('./Images/undefined.png')
         else:
             image = NETWORK_MANAGER.httpGetImage(QUrl(imageUrl))
             self.picture = ScaledPicture('', image)

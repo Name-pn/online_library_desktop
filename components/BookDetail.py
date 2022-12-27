@@ -17,7 +17,7 @@ class BookDetailComponent(QtWidgets.QWidget):
         name = self.book.get('title')
         imageUrl = self.book.get('cover')
         if imageUrl is None:
-            self.picture = ScaledPicture('./images/book.png')
+            self.picture = ScaledPicture('./Images/book.png')
         else:
             image = NETWORK_MANAGER.httpGetImage(QUrl(imageUrl))
             self.picture = ScaledPicture('', image)

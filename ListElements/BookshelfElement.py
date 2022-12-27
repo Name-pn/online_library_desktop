@@ -69,7 +69,7 @@ class BookshelfElement(QtWidgets.QWidget):
         picture = QtWidgets.QLabel()
         picture.setFixedSize(100, 200)
         if self.properties.get('cover') is None:
-            picture.setPixmap(QtGui.QPixmap('./images/book.png').scaled(picture.size()))
+            picture.setPixmap(QtGui.QPixmap('./Images/book.png').scaled(picture.size()))
         else:
             image = NETWORK_MANAGER.httpGetImage(QUrl(self.properties['cover']))
             pixmap = QtGui.QPixmap.fromImage(image)

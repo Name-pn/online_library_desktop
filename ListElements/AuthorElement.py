@@ -49,14 +49,14 @@ class AutherElement(QtWidgets.QWidget):
         picture = QtWidgets.QLabel()
         picture.setMaximumSize(100, 200)
         if self.properties['image'] is None:
-            picture.setPixmap(QtGui.QPixmap('./images/undefined.png').scaled(100, 100))
+            picture.setPixmap(QtGui.QPixmap('./Images/undefined.png').scaled(100, 100))
         else:
             image = NETWORK_MANAGER.httpGetImage(QUrl(self.properties['image']))
             pixmap = QtGui.QPixmap.fromImage(image)
 
             pixmap = pixmap.scaled(picture.size())
             picture.setPixmap(pixmap)
-            #picture.setPixmap(QtGui.QPixmap('./images/undefined.png'))  # todo Масштабирование бы поправить
+            #picture.setPixmap(QtGui.QPixmap('./Images/undefined.png'))  # todo Масштабирование бы поправить
 
 
         return picture

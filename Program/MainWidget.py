@@ -46,7 +46,7 @@ class MainWidget(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setWindowTitle('Онлайн библиотека (Локальное приложение)')
-        icon = QtGui.QIcon('./images/lib.png')
+        icon = QtGui.QIcon('./Images/lib.png')
         self.setWindowIcon(icon)
 
         # Основные элементы
