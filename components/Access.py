@@ -1,38 +1,38 @@
-import PyQt5.QtCore
-import PyQt5.QtGui
-import PyQt5.QtWidgets
-from PyQt5 import QtGui
+import PyQt6.QtCore
+import PyQt6.QtGui
+import PyQt6.QtWidgets
+from PyQt6 import QtGui
 
 
-class AccessComponent(PyQt5.QtWidgets.QWidget):
+class AccessComponent(PyQt6.QtWidgets.QWidget):
 
     def __init__(self, f, parent=None):
         super().__init__(parent)
         self.f = f
-        self.vl = PyQt5.QtWidgets.QVBoxLayout(self)
-        self.hl = PyQt5.QtWidgets.QHBoxLayout()
-        self.vlLeft = PyQt5.QtWidgets.QVBoxLayout()
-        self.vlRight = PyQt5.QtWidgets.QVBoxLayout()
+        self.vl = PyQt6.QtWidgets.QVBoxLayout(self)
+        self.hl = PyQt6.QtWidgets.QHBoxLayout()
+        self.vlLeft = PyQt6.QtWidgets.QVBoxLayout()
+        self.vlRight = PyQt6.QtWidgets.QVBoxLayout()
 
-        self.enterToSyte = PyQt5.QtWidgets.QPushButton("Войти")
+        self.enterToSyte = PyQt6.QtWidgets.QPushButton("Войти")
         self.enterToSyte.setFont(QtGui.QFont("Times new roman", 12))
 
-        self.nameLabel = PyQt5.QtWidgets.QTextEdit("")
-        self.passwordLabel = PyQt5.QtWidgets.QTextEdit("")
-        self.statusLabel = PyQt5.QtWidgets.QTextBrowser()
-        self.statusOutput = PyQt5.QtWidgets.QTextBrowser()
+        self.nameLabel = PyQt6.QtWidgets.QTextEdit("")
+        self.passwordLabel = PyQt6.QtWidgets.QTextEdit("")
+        self.statusLabel = PyQt6.QtWidgets.QTextBrowser()
+        self.statusOutput = PyQt6.QtWidgets.QTextBrowser()
 
-        self.nameInput = PyQt5.QtWidgets.QTextBrowser()
-        self.passwordInput = PyQt5.QtWidgets.QTextBrowser()
+        self.nameInput = PyQt6.QtWidgets.QTextBrowser()
+        self.passwordInput = PyQt6.QtWidgets.QTextBrowser()
 
-        self.nameLabel.setAlignment(PyQt5.QtCore.Qt.AlignHCenter)
-        self.statusLabel.setAlignment(PyQt5.QtCore.Qt.AlignVCenter)
+        self.nameLabel.setAlignment(PyQt6.QtCore.Qt.AlignmentFlag.AlignHCenter)
+        self.statusLabel.setAlignment(PyQt6.QtCore.Qt.AlignmentFlag.AlignVCenter)
 
-        self.nameInput.setAlignment(PyQt5.QtCore.Qt.AlignHCenter)
-        self.passwordInput.setAlignment(PyQt5.QtCore.Qt.AlignHCenter)
+        self.nameInput.setAlignment(PyQt6.QtCore.Qt.AlignmentFlag.AlignHCenter)
+        self.passwordInput.setAlignment(PyQt6.QtCore.Qt.AlignmentFlag.AlignHCenter)
 
-        self.passwordLabel.setAlignment(PyQt5.QtCore.Qt.AlignHCenter)
-        self.statusOutput.setAlignment(PyQt5.QtCore.Qt.AlignHCenter)
+        self.passwordLabel.setAlignment(PyQt6.QtCore.Qt.AlignmentFlag.AlignHCenter)
+        self.statusOutput.setAlignment(PyQt6.QtCore.Qt.AlignmentFlag.AlignHCenter)
 
         self.nameLabel.setFont(QtGui.QFont("Times new roman", 16))
         self.statusLabel.setFont(QtGui.QFont("Times new roman", 16))

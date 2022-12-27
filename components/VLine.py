@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt6 import QtWidgets, QtGui, QtCore
 
 
 class VLine(QtWidgets.QWidget):
@@ -13,7 +13,7 @@ class VLine(QtWidgets.QWidget):
 
     def paintEvent(self, a0: QtGui.QPaintEvent):
         painter = QtGui.QPainter(self)
-        pen = QtGui.QPen(QtCore.Qt.black, 3)
+        pen = QtGui.QPen(QtGui.QColor(0, 0, 0), 3)
         painter.setPen(pen)
         painter.drawLine(int(self.center), 0, int(self.center), self.height)
 

@@ -1,7 +1,6 @@
-import PyQt5
-from PyQt5 import QtGui, QtWidgets, QtCore
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QLayout, QWidget, QAbstractScrollArea
+import PyQt6
+from PyQt6 import QtGui, QtWidgets, QtCore
+from PyQt6.QtWidgets import QLayout
 
 from API.apps import Books, Users
 from ListElements.BookshelfElement import BookshelfElement
@@ -12,16 +11,16 @@ class BookshelfComponent(QtWidgets.QWidget):
         super().__init__(*args, **kwargs)
 
         self.scrollArea = QtWidgets.QScrollArea()
-        self.scrollArea.setSizePolicy(PyQt5.QtWidgets.QSizePolicy.Minimum, PyQt5.QtWidgets.QSizePolicy.Maximum)
+        self.scrollArea.setSizePolicy(PyQt6.QtWidgets.QSizePolicy.Policy.Minimum, PyQt6.QtWidgets.QSizePolicy.Policy.Maximum)
         self.scrollArea.setWidgetResizable(True)
-        self.setSizePolicy(PyQt5.QtWidgets.QSizePolicy.Minimum, PyQt5.QtWidgets.QSizePolicy.Minimum)
+        self.setSizePolicy(PyQt6.QtWidgets.QSizePolicy.Policy.Minimum, PyQt6.QtWidgets.QSizePolicy.Policy.Minimum)
 
         self.scrollArea.setParent(self)
         self.array = []
         self.mainLayout = self.initLayout()
 
         self.content = QtWidgets.QWidget()
-        self.content.setSizePolicy(PyQt5.QtWidgets.QSizePolicy.Maximum, PyQt5.QtWidgets.QSizePolicy.Maximum)
+        self.content.setSizePolicy(PyQt6.QtWidgets.QSizePolicy.Policy.Maximum, PyQt6.QtWidgets.QSizePolicy.Policy.Maximum)
 
         self.content.setLayout(self.mainLayout)
 
@@ -43,7 +42,7 @@ class BookshelfComponent(QtWidgets.QWidget):
         self.scrollArea.setFixedSize(self.size())
 
     def initUI(self):
-        self.scrollArea.setAlignment(QtCore.Qt.AlignCenter)
+        self.scrollArea.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.scrollArea.setWidget(self.content)
         self.setMinimumSize(self.scrollArea.size())
 
@@ -62,7 +61,6 @@ class BookshelfComponent(QtWidgets.QWidget):
     def initButtonsToRemove(self, f):
         for el in self.array:
             el.initButtonToRemove(f, lambda elArg: self.removeW(elArg))
-
 
     def initButtonsToDetails(self, f):
         for el in self.array:

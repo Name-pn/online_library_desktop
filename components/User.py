@@ -1,7 +1,7 @@
-from PyQt5 import QtGui, QtCore, QtWidgets
-from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QFont, QCursor
-import PyQt5.QtGui
+from PyQt6 import QtGui, QtCore, QtWidgets
+from PyQt6.QtCore import QUrl
+from PyQt6.QtGui import QFont, QCursor
+import PyQt6.QtGui
 
 from API.apps import Users
 from Program.Networking import NETWORK_MANAGER
@@ -13,7 +13,7 @@ class UserComponent(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         curs = QtGui.QCursor()
-        curs.setShape(PyQt5.QtCore.Qt.CursorShape.PointingHandCursor)
+        curs.setShape(PyQt6.QtCore.Qt.CursorShape.PointingHandCursor)
 
         self.hlFirst = QtWidgets.QHBoxLayout(self)
         self.hl = QtWidgets.QHBoxLayout()
@@ -45,7 +45,7 @@ class UserComponent(QtWidgets.QWidget):
         self.initUI()
 
     def initUI(self):
-        self.hl.setAlignment(QtCore.Qt.AlignCenter)
+        self.hl.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.image = self.image.scaled(30, 30)
         self.imageForm.setPixmap(self.image)
         self.vline.setHeight(self.image.height())

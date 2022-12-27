@@ -1,20 +1,19 @@
-import PyQt5.QtWidgets
-import PyQt5.QtGui
-import PyQt5.QtCore
+import PyQt6.QtWidgets
+import PyQt6.QtGui
+import PyQt6.QtCore
 import components.VLine
 import components.ScaledPicture
 
-class MainPageComponent(PyQt5.QtWidgets.QWidget):
+class MainPageComponent(PyQt6.QtWidgets.QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.vl = PyQt5.QtWidgets.QVBoxLayout(self)
-        self.hl = PyQt5.QtWidgets.QHBoxLayout()
+        self.vl = PyQt6.QtWidgets.QVBoxLayout(self)
+        self.hl = PyQt6.QtWidgets.QHBoxLayout()
 
         self.pic = components.ScaledPicture.ScaledPicture('.\images\imageLib.png')
 
-
-        self.text = PyQt5.QtWidgets.QTextBrowser()
+        self.text = PyQt6.QtWidgets.QTextBrowser()
         self.text.setText("Книга играет огромную и наиболее важную роль в жизни человека. В давние времена книга считалась бесценным источником информации,"
                           " самым древним способом передачи знаний, но сейчас книги пользуются наименьшей популярностью так, как стало на много легче найти"
                           " информацию из-за появления многих другие источников и люди стали забывать о существование книг, но все же мир информационных "
@@ -37,21 +36,21 @@ class MainPageComponent(PyQt5.QtWidgets.QWidget):
                           "историю через века и обучать дальнейшее поколения. Пусть книга играет главную роль не только "
                           "в жизни каждого человека, но и всего человечества в целом. Каждый прочитавший хоть одну книгу, "
                           "будет полностью согласен главной ролью книги.")
-        self.font = PyQt5.QtGui.QFont("Times new roman", 16)
-        self.text.setAlignment(PyQt5.QtCore.Qt.AlignJustify)
+        self.font = PyQt6.QtGui.QFont("Times new roman", 16)
+        self.text.setAlignment(PyQt6.QtCore.Qt.AlignmentFlag.AlignJustify)
         self.text.setFont(self.font)
 
-        self.quote = PyQt5.QtWidgets.QLabel()
+        self.quote = PyQt6.QtWidgets.QLabel()
         self.quote.setWordWrap(True)
-        self.quote.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+        self.quote.setAlignment(PyQt6.QtCore.Qt.AlignmentFlag.AlignCenter)
         self.quote.setText("Читая в первый раз хорошую книгу, мы испытываем то же чувство, как при приобретении нового друга. "
                            "Вновь прочитать уже читанную книгу — значит вновь увидеть старого друга.\n"
                            "Вольтер.")
-        self.quote.setFont(PyQt5.QtGui.QFont("Times new roman", 14))
+        self.quote.setFont(PyQt6.QtGui.QFont("Times new roman", 14))
 
         self.initUI()
 
-    def paintEvent(self, a0: PyQt5.QtGui.QPaintEvent):
+    def paintEvent(self, a0: PyQt6.QtGui.QPaintEvent):
         self.pic.setMinimumWidth(int(self.width()/3))
 
     def initUI(self):

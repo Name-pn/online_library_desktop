@@ -1,7 +1,8 @@
-from PyQt5 import QtGui, QtWidgets, QtCore
-from PyQt5.QtCore import QUrl
-from PyQt5.QtWidgets import QLayout, QLabel
+from PyQt6 import QtGui, QtWidgets, QtCore
+from PyQt6.QtCore import QUrl, Qt
+from PyQt6.QtWidgets import QLayout, QLabel, QSizePolicy
 
+import components.Comments
 from API.apps import Books, Authors, Users, UserTypes
 from Program.Networking import NETWORK_MANAGER
 from components.ScaledPicture import ScaledPicture
@@ -20,7 +21,7 @@ class BookDetailComponent(QtWidgets.QWidget):
         else:
             image = NETWORK_MANAGER.httpGetImage(QUrl(imageUrl))
             self.picture = ScaledPicture('', image)
-
+        self.picture.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
         self.vl = QtWidgets.QVBoxLayout(self)
         self.hlSup = QtWidgets.QHBoxLayout()
         self.vlSup = QtWidgets.QVBoxLayout()
@@ -28,17 +29,20 @@ class BookDetailComponent(QtWidgets.QWidget):
         self.name.setText(name)
 
         self.name.setFont(QtGui.QFont("Times new roman", 20))
-        self.name.setSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
-        self.characters1 = QtWidgets.QTextEdit('Год написания: ' + str(self.book.get('year_of_writing')))
-        self.characters1.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
+        self.name.setSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
+
+        self.characters1 = QtWidgets.QTextBrowser()
+        self.characters1.setText('Год написания: ' + str(self.book.get('year_of_writing')) + '\n' +
+                                               'Автор: ' + author['name'] + ' ' + author['surname'])
+        self.characters1.setSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
         self.characters1.setFont(QtGui.QFont("Times new roman", 16))
-        self.characters2 = QtWidgets.QTextEdit('Автор: ' + author['name'] + ' ' + author['surname'])
-        self.characters2.setFont(QtGui.QFont("Times new roman", 16))
-        self.descriptionText = QtWidgets.QTextEdit(self.book.get('description'))
+        self.descriptionText = QtWidgets.QTextBrowser()
+        self.descriptionText.setText(self.book.get('description'))
         self.descriptionText.setFont(QtGui.QFont("Times new roman", 16))
-        self.characters2.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
-        self.descriptionText.setAlignment(QtCore.Qt.AlignJustify)
-        self.descriptionText.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
+        self.descriptionText.setAlignment(QtCore.Qt.AlignmentFlag.AlignJustify)
+        self.descriptionText.setSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.user = Users.get_user_type()
+        self.comments = components.Comments.Comments(slug, self.user)
         self.initUI()
 
     def initUI(self):
@@ -48,17 +52,16 @@ class BookDetailComponent(QtWidgets.QWidget):
 
         self.vlSup.addWidget(self.characters1)
         self.vlSup.addWidget(self.descriptionText)
-        self.vlSup.addWidget(self.characters2)
         self.hlSup.addLayout(self.vlSup)
 
         self.vl.addLayout(self.hlSup)
-        user = Users.get_user_type()
-        if user != UserTypes.GUEST:
+
+        if self.user != UserTypes.GUEST:
             self.button = QtWidgets.QPushButton('Добавить на книжную полку')
-            self.button.setFont(QtGui.QFont("Times new roman", 12))
-            self.vl.addWidget(self.button)
+            self.button.setFont(QtGui.QFont("Times new roman", 16))
+            self.vlSup.addWidget(self.button)
 
-
+        self.vl.addWidget(self.comments)
         self.name.setStyleSheet("QLabel {background-color: yellow;}")
         self.name.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 

@@ -1,14 +1,14 @@
-import PyQt5
-from PyQt5 import QtWidgets
+import PyQt6
+from PyQt6 import QtWidgets
 
 from components.Bookshelf import BookshelfComponent
 from components.Top import TopComponent
 
-class Bookshelf(PyQt5.QtWidgets.QWidget):
+class Bookshelf(PyQt6.QtWidgets.QWidget):
 
     def __init__(self, topComponent: TopComponent, parent=None):
         super().__init__(parent)
-        self.vl = PyQt5.QtWidgets.QVBoxLayout(self)
+        self.vl = PyQt6.QtWidgets.QVBoxLayout(self)
 
         self.top = topComponent
         self.list = BookshelfComponent()

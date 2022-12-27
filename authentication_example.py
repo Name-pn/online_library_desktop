@@ -11,6 +11,7 @@ if __name__ == '__main__':
         print('Ваши данные')
         print(Users.current())
         print(Books.get_all())
+        print(Books.get_detail(Books.get_all()[0]['slug']))
         print(Authors.get_all())
         print(Authors.get_detail('mark-lutts'))
         Auth.logout()

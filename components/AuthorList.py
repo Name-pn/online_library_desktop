@@ -1,5 +1,5 @@
-from PyQt5 import QtGui, QtWidgets, QtCore
-from PyQt5.QtWidgets import QLayout
+from PyQt6 import QtGui, QtWidgets, QtCore
+from PyQt6.QtWidgets import QLayout
 
 from API.apps import Authors
 from ListElements.AuthorElement import AutherElement
@@ -37,6 +37,6 @@ class AuthorListComponent(QtWidgets.QWidget):
         self.scrollArea.setFixedSize(self.size())
 
     def initUI(self):
-        self.scrollArea.setAlignment(QtCore.Qt.AlignCenter)
+        self.scrollArea.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.scrollArea.setWidget(self.content)
         self.setMinimumSize(self.scrollArea.size())

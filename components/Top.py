@@ -1,5 +1,5 @@
-from PyQt5 import QtGui, QtCore, QtWidgets
-from PyQt5.QtWidgets import QSizePolicy
+from PyQt6 import QtGui, QtCore, QtWidgets
+from PyQt6.QtWidgets import QSizePolicy
 
 from components.User import UserComponent
 from components.Ref import RefComponent
@@ -25,13 +25,12 @@ class TopComponent(QtWidgets.QWidget):
 
     def paintEvent(self, a0: QtGui.QPaintEvent):
         painter = QtGui.QPainter(self)
-        brush = QtGui.QBrush(QtCore.Qt.gray)
+        brush = QtGui.QBrush(QtGui.QColor(128, 128, 128))
         painter.setBrush(brush)
         painter.drawRect(0, 0, self.width(), self.height())
 
     def initUI(self):
-        #self.setFixedHeight(75)
         self.hl.addWidget(self.left)
         self.hl.addWidget(self.refC)
-        self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
+        self.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum)
 

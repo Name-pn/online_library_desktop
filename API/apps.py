@@ -18,6 +18,37 @@ class Authors(App, GetAllMixin, GetDetailMixin):
     root_url = API_ROOT + 'authors/'
 
 
+class Comments(App, GetAllMixin):
+    """
+        Реализует взаимодействие с приложением comments.
+        Ключевое поле - book, user, score.
+    """
+
+    root_url = API_ROOT + 'comments/'
+
+    @classmethod
+    def post_comment(cls, book, score, text):
+        response = get_data_from_request(cls.root_url, 'POST', data={'book': book,
+                                                                      'text': text,
+                                                                      'score': score},
+                                         auth=Auth.get_token())
+
+        return response
+
+    @classmethod
+    def remove_comment(cls, id):
+        response = get_data_from_request(cls.root_url+str(id)+'/', 'DELETE',
+                                         auth=Auth.get_token())
+
+
+    @classmethod
+    def get_comments(cls, book = '', user = '', score = ''):
+        response = get_data_from_request(cls.root_url, 'GET', params={'book': book,
+                                                                  'user': user,
+                                                                  'score': score})
+
+        return response
+
 class Books(App, GetAllMixin, GetDetailMixin):
     """
     Реализует взаимодействие с приложением books.
@@ -25,6 +56,16 @@ class Books(App, GetAllMixin, GetDetailMixin):
     """
 
     root_url = API_ROOT + 'books/'
+
+    @classmethod
+    def get_filter(cls, genre = '', author = '', year_of_writing_min = '', year_of_writing_max = ''):
+        response = get_data_from_request(API_ROOT + 'books/', 'GET', params={'genres': genre,
+                                                                             'author': author,
+                                                                             'year_of_writing_min': year_of_writing_min,
+                                                                             'year_of_writing_max': year_of_writing_max})
+
+        return response
+
 
     @classmethod
     def add_to_bookshelf(cls, slug):

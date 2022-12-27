@@ -1,7 +1,7 @@
-import PyQt5
-from PyQt5 import QtWidgets, QtGui, QtCore
-from PyQt5.QtCore import QUrl
-from PyQt5.QtWidgets import QSizePolicy
+import PyQt6
+from PyQt6 import QtWidgets, QtGui, QtCore
+from PyQt6.QtCore import QUrl
+from PyQt6.QtWidgets import QSizePolicy
 
 from API.apps import Authors
 from Program.Networking import NETWORK_MANAGER
@@ -11,7 +11,7 @@ class BookshelfElement(QtWidgets.QWidget):
 
     def paintEvent(self, a0: QtGui.QPaintEvent):
         painter = QtGui.QPainter(self)
-        brush = QtGui.QBrush(QtCore.Qt.yellow)
+        brush = QtGui.QBrush(QtGui.QColor(255, 253, 98))
         painter.setBrush(brush)
         painter.drawRect(0, 0, self.width(), self.height())
 
@@ -106,7 +106,7 @@ class BookshelfElement(QtWidgets.QWidget):
         self.mainLayout.addWidget(self.buttonRemove)
 
         self.mainHLayout.addLayout(self.mainLayout)
-        self.mainHLayout.setAlignment(QtCore.Qt.AlignCenter)
+        self.mainHLayout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
     def initButtonToPdf(self, f):
         self.buttonToRead.clicked.connect(lambda: f(self.properties['file']))

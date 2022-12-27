@@ -1,6 +1,6 @@
-from PyQt5 import QtGui, QtWidgets, QtCore
-from PyQt5.QtCore import QUrl
-from PyQt5.QtWidgets import QLayout, QLabel
+from PyQt6 import QtGui, QtWidgets, QtCore
+from PyQt6.QtCore import QUrl
+from PyQt6.QtWidgets import QLayout, QLabel
 
 from API.apps import Authors, Users
 from Program.Networking import NETWORK_MANAGER
@@ -24,23 +24,23 @@ class PrivatePageComponent(QtWidgets.QWidget):
         self.name.setText(name)
 
         self.name.setFont(QtGui.QFont("Times new roman", 20))
-        self.name.setSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.name.setSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Preferred)
         if imageUrl is None:
             self.picture = ScaledPicture('./images/undefined.png')
         else:
             image = NETWORK_MANAGER.httpGetImage(QUrl(imageUrl))
             self.picture = ScaledPicture('', image)
         self.picture.setBaseSize(200, 100)
-        self.picture.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+        self.picture.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Preferred)
         self.mail = QtWidgets.QTextEdit('Электронная почта пользователя: ' + mail)
-        self.mail.setAlignment(QtCore.Qt.AlignJustify)
-        self.mail.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
+        self.mail.setAlignment(QtCore.Qt.AlignmentFlag.AlignJustify)
+        self.mail.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Maximum)
         self.mail.setFont(QtGui.QFont("Times new roman", 16))
         if staff:
             self.staff = QtWidgets.QTextEdit('Роль пользователя: администратор')
         else:
             self.staff = QtWidgets.QTextEdit('Роль пользователя: читатель')
-        self.staff.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
+        self.staff.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Maximum)
         self.staff.setFont(QtGui.QFont("Times new roman", 16))
         self.initUI()
 

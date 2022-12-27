@@ -1,7 +1,9 @@
-import PyQt5
-from PyQt5.QtCore import QEventLoop, QObject, QMetaObject, Q_ARG, QUrl
-from PyQt5.QtGui import QImage, QImageReader
-from PyQt5.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
+import PyQt6
+from PyQt6.QtCore import QEventLoop, QObject, QMetaObject, Q_ARG, QUrl, QFile
+from PyQt6.QtGui import QImage, QImageReader
+from PyQt6.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
+from PyQt6.QtPdf import QPdfDocument
+
 
 class Networking:
     class NetworkingPrivate(QObject):
@@ -13,12 +15,35 @@ class Networking:
             img = QImage()
             
             reader = QImageReader(reply)
-            if reply.error() == QNetworkReply.NoError:
+            if reply.error() == QNetworkReply.NetworkError.NoError:
                  reader.read(img)
             else:
                  print('[NetworkingPrivate] Reply error')
             reply.deleteLater()
             return img
+
+        def httpGetPdf(self, src, parent):
+            request = QNetworkRequest()
+            request.setUrl(src)
+            reply = self.nam.get(request)
+            while not reply.isFinished():
+                self.loop.exec()
+
+            doc = QPdfDocument(parent)
+            file = QFile('./pdfCache.pdf')
+            file.open(QFile.OpenModeFlag.WriteOnly)
+            if file.isOpen():
+                file.write(reply.readAll())
+                file.close()
+            else:
+                print('File error')
+            if reply.error() == QNetworkReply.NetworkError.NoError:
+                doc.load('./pdfCache.pdf')
+
+            else:
+                print('[NetworkingPrivate] Reply error')
+            reply.deleteLater()
+            return doc
 
         def httpGetImageAsync(self, src, receiver, slot):
             request = QNetworkRequest()
@@ -45,7 +70,7 @@ class Networking:
                     else:
                         print('[NetworkingPrivate] Reply error')
                     if obj[0] and obj[1][1]:
-                        QMetaObject.invokeMethod(obj[0], obj[1][1], PyQt5.QtCore.Qt.DirectConnection, Q_ARG(QUrl, obj[1][0]), Q_ARG(QImage, img))
+                        QMetaObject.invokeMethod(obj[0], obj[1][1], PyQt6.QtCore.Qt.DirectConnection, Q_ARG(QUrl, obj[1][0]), Q_ARG(QImage, img))
 
         def __init__(self):
             super().__init__()
@@ -66,8 +91,12 @@ class Networking:
     def httpGetImageAsync(self, url, receiver, slot):
         return self.manager.httpGetImageAsync(url, receiver, slot)
 
+    def httpGetPdf(self, url, parent):
+        return self.manager.httpGetPdf(url, parent)
+
     def __init__(self):
         self.manager = self.NetworkingPrivate()
+
 
 
 NETWORK_MANAGER = Networking()

@@ -1,5 +1,5 @@
-from PyQt5 import QtWidgets, QtGui, QtCore
-from PyQt5.QtCore import QUrl
+from PyQt6 import QtWidgets, QtGui, QtCore
+from PyQt6.QtCore import QUrl
 
 from Program.Networking import NETWORK_MANAGER
 
@@ -7,7 +7,7 @@ class AutherElement(QtWidgets.QWidget):
 
     def paintEvent(self, a0: QtGui.QPaintEvent):
         painter = QtGui.QPainter(self)
-        brush = QtGui.QBrush(QtCore.Qt.yellow)
+        brush = QtGui.QBrush(QtGui.QColor(255, 253, 98))
         painter.setBrush(brush)
         painter.drawRect(0, 0, self.width(), self.height())
 
@@ -28,7 +28,7 @@ class AutherElement(QtWidgets.QWidget):
 
         self.annotation = QtWidgets.QTextBrowser()
         self.annotation.setText('Описание: ' + self.properties.get('description'))
-        self.annotation.setAlignment(QtCore.Qt.AlignJustify)
+        self.annotation.setAlignment(QtCore.Qt.AlignmentFlag.AlignJustify)
         self.annotation.setFont(QtGui.QFont("Times new roman", 16))
 
         self.button = QtWidgets.QPushButton('Перейти к личной странице')
@@ -74,4 +74,4 @@ class AutherElement(QtWidgets.QWidget):
         self.mainLayout.addWidget(self.button)
 
         self.mainHLayout.addLayout(self.mainLayout)
-        self.mainHLayout.setAlignment(QtCore.Qt.AlignCenter)
+        self.mainHLayout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)

@@ -1,7 +1,7 @@
-import PyQt5
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtGui import QFont
-from PyQt5.QtGui import QCursor
+import PyQt6
+from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtGui import QFont
+from PyQt6.QtGui import QCursor
 
 from components.VLine import VLine
 
@@ -13,7 +13,7 @@ class RefComponent(QtWidgets.QWidget):
         self.hl = QtWidgets.QHBoxLayout(self)
 
         curs = QCursor()
-        curs.setShape(PyQt5.QtCore.Qt.CursorShape.PointingHandCursor)
+        curs.setShape(PyQt6.QtCore.Qt.CursorShape.PointingHandCursor)
 
         self.main = QtWidgets.QPushButton("Главная")
         self.main.setFont(QFont('Times new roman', 12))
@@ -34,7 +34,7 @@ class RefComponent(QtWidgets.QWidget):
         self.initUI()
 
     def initUI(self):
-        self.hl.setAlignment(QtCore.Qt.AlignLeft)
+        self.hl.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
         self.hl.addWidget(self.main)
         self.hl.addWidget(self.vline1)
         self.hl.addWidget(self.books)

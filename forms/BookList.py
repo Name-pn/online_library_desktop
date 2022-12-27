@@ -1,18 +1,18 @@
-import PyQt5
-from PyQt5 import QtWidgets
+import PyQt6
+from PyQt6 import QtWidgets
 
-from components.BookList import BookListComponent
+from components.BookWidget import BookWidget
 from components.Top import TopComponent
 
 
-class BookList(PyQt5.QtWidgets.QWidget):
+class BookList(PyQt6.QtWidgets.QWidget):
 
     def __init__(self, topComponent: TopComponent, parent=None):
         super().__init__(parent)
-        self.vl = PyQt5.QtWidgets.QVBoxLayout(self)
+        self.vl = PyQt6.QtWidgets.QVBoxLayout(self)
 
         self.comp = topComponent
-        self.list = BookListComponent()
+        self.list = BookWidget()
 
         self.initUI()
 
@@ -23,3 +23,9 @@ class BookList(PyQt5.QtWidgets.QWidget):
 
     def initButtons(self, f):
         self.list.initButtons(f)
+
+    def resetTop(self, component):
+        self.vl.removeWidget(self.comp)
+        self.comp.deleteLater()
+        self.vl.insertWidget(0, component)
+        self.comp = component

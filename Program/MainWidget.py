@@ -1,7 +1,7 @@
+from PyQt6.QtWidgets import QSizePolicy
 from requests import HTTPError
 from API.apps import Auth, Users, UserTypes, Books
-from PyQt5 import QtGui, QtWidgets
-import Program.GlStack
+from PyQt6 import QtGui, QtWidgets
 import components.User
 import components.Enter
 import components.Top
@@ -9,7 +9,6 @@ import forms.MainPage
 import forms.BookList
 import forms.AuthorList
 import forms.EntryForm
-from API.store import Store
 from forms.AuthorDetails import AuthorDetails
 from forms.BookDetails import BookDetails
 from forms.Bookshelf import Bookshelf
@@ -57,7 +56,6 @@ class MainWidget(QtWidgets.QWidget):
         # Окно входа
         self.enterWidget = forms.EntryForm.EntryForm(lambda: self.setEnabled(True))
         self.enterWidget.enter.enterToSyte.clicked.connect(self.runLogin)
-
         self.initStack()
 
         self.initGI()
@@ -106,14 +104,31 @@ class MainWidget(QtWidgets.QWidget):
             self.BListW.initButtons(lambda slug: self.addAndMoveBookD(slug))
             self.stack.addWidget(self.BListW)
 
-    def reinitTopComponent(self):
-        self.vl.removeWidget(self.stack)
-        index = self.stack.currentIndex()
-        self.stack = QtWidgets.QStackedWidget()
-        self.initStack()
+    def reinitStack(self):
+        type = Users.get_user_type()
+        if type == UserTypes.GUEST:
+            self.mainW.resetTop(self.getTopComponentGuest())
 
-        self.stack.setCurrentIndex(index)
-        self.vl.addWidget(self.stack)
+            self.AListW.resetTop(self.getTopComponentGuest())
+
+            self.BListW.resetTop(self.getTopComponentGuest())
+
+        else:
+            self.mainW.resetTop(self.getTopComponentAuth())
+
+            self.AListW.resetTop(self.getTopComponentAuth())
+
+            self.BListW.resetTop(self.getTopComponentAuth())
+
+    def reinitTopComponent(self):
+        self.reinitStack()
+        #self.vl.removeWidget(self.stack)
+        #index = self.stack.currentIndex()
+        #self.stack = QtWidgets.QStackedWidget()
+        #self.initStack()
+
+        #self.stack.setCurrentIndex(index)
+        #self.vl.addWidget(self.stack)
         self.update()
 
     def runLogin(self):
@@ -140,50 +155,50 @@ class MainWidget(QtWidgets.QWidget):
         self.stack.setCurrentIndex(0)
 
     def CTD1(self, wid):
-        self.stack.removeWidget(wid),
-        self.stack.setCurrentIndex(0),
+        self.stack.setCurrentIndex(0)
         self.outLogin()
+        self.stack.removeWidget(wid)
         return
 
     def CTD1_alt(self, wid):
-        self.stack.removeWidget(wid),
         self.stack.setCurrentIndex(0),
         self.toLogin()
+        self.stack.removeWidget(wid)
         return
 
     def CTD2(self, wid):
-        self.stack.removeWidget(wid)
         self.toMainMove()
+        self.stack.removeWidget(wid)
         return
 
     def CTD3(self, wid):
-        self.stack.removeWidget(wid)
         self.toBookList()
+        self.stack.removeWidget(wid)
         return
 
     def CTD4(self, wid):
-        self.stack.removeWidget(wid)
         self.toAuthorList()
+        self.stack.removeWidget(wid)
         return
 
     def CTD_user(self, wid):
-        self.stack.removeWidget(wid)
         self.addAndMovePrivateP()
+        self.stack.removeWidget(wid)
         return
 
     def CTD_bookshelf(self, wid):
-        self.stack.removeWidget(wid)
         self.addAndMoveBookshelf()
+        self.stack.removeWidget(wid)
         return
 
     def CTD_bookshelf_to_details(self, wid, slug):
-        self.stack.removeWidget(wid)
         self.addAndMoveBookD(slug)
+        self.stack.removeWidget(wid)
         return
 
     def CTD_bookshelf_to_pdf(self, wid, slug):
-        self.stack.removeWidget(wid)
         self.addAndMoveBookPDF(slug)
+        self.stack.removeWidget(wid)
         return
 
     def connectTopWithDelete(self, toDelete):

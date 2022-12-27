@@ -1,13 +1,12 @@
-import PyQt5.QtWidgets
+import PyQt6.QtWidgets
 
 from components import BookDetail, Top
 
 
-class BookDetails(PyQt5.QtWidgets.QWidget):
-
+class BookDetails(PyQt6.QtWidgets.QWidget):
     def __init__(self, topComponent: Top, slug, *arg, **kwargs):
         super().__init__(*arg, **kwargs)
-        self.vl = PyQt5.QtWidgets.QVBoxLayout(self)
+        self.vl = PyQt6.QtWidgets.QVBoxLayout(self)
 
         self.top = topComponent
         self.list = BookDetail.BookDetailComponent(slug)
