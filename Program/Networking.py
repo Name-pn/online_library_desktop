@@ -45,39 +45,13 @@ class Networking:
             reply.deleteLater()
             return doc
 
-        def httpGetImageAsync(self, src, receiver, slot):
-            request = QNetworkRequest()
-            request.setUrl(src)
-            obj = (receiver, (src, slot))
-            reply = self.nam.get(request)
-            self.requests[reply] = obj
 
-        def onFinished(self, reply):
-            if reply in self.requests:
-                obj = self.requests[reply]
-                redirectedUrl = reply.attribute(QNetworkRequest.RedirectionTargetAttribute)
-                redirectedTo = redirectedUrl.toUrl()
-                if redirectedTo.isValid():
-                    if redirectedTo != reply.url():
-                        self.httpGetImageAsync(redirectedTo, obj[0], obj[1][1])
-                    else:
-                        print('[NetworkingPrivate] Infinite redirect loop at ' + str(redirectedTo))
-                else:
-                    img = QImage()
-                    reader = QImageReader()
-                    if reply.error() == QNetworkReply.NoError:
-                        reader.read(img)
-                    else:
-                        print('[NetworkingPrivate] Reply error')
-                    if obj[0] and obj[1][1]:
-                        QMetaObject.invokeMethod(obj[0], obj[1][1], PyQt6.QtCore.Qt.DirectConnection, Q_ARG(QUrl, obj[1][0]), Q_ARG(QImage, img))
 
         def __init__(self):
             super().__init__()
             self.requests = dict()
             self.nam = QNetworkAccessManager()
             self.loop = QEventLoop()
-            self.nam.finished.connect(self.onFinished)
             self.nam.finished.connect(self.loop.quit)
 
         #def __del__(self):
