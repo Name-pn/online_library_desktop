@@ -3,9 +3,9 @@ import PyQt6.QtGui
 import PyQt6.QtCore
 import Components.VLine
 import Components.ScaledPicture
+import Program.Constrains
 
 class MainPageComponent(PyQt6.QtWidgets.QWidget):
-
     def __init__(self, parent=None):
         super().__init__(parent)
         self.vl = PyQt6.QtWidgets.QVBoxLayout(self)
@@ -36,9 +36,9 @@ class MainPageComponent(PyQt6.QtWidgets.QWidget):
                           "историю через века и обучать дальнейшее поколения. Пусть книга играет главную роль не только "
                           "в жизни каждого человека, но и всего человечества в целом. Каждый прочитавший хоть одну книгу, "
                           "будет полностью согласен главной ролью книги.")
-        self.font = PyQt6.QtGui.QFont("Times new roman", 16)
+        self.font = Program.Constrains.DEFAULT_CONSTRAINS.mainFont
         self.text.setAlignment(PyQt6.QtCore.Qt.AlignmentFlag.AlignJustify)
-        self.text.setFont(self.font)
+        self.text.setFont(PyQt6.QtGui.QFont("Georgia", 18))
 
         self.quote = PyQt6.QtWidgets.QLabel()
         self.quote.setWordWrap(True)
@@ -46,7 +46,7 @@ class MainPageComponent(PyQt6.QtWidgets.QWidget):
         self.quote.setText("Читая в первый раз хорошую книгу, мы испытываем то же чувство, как при приобретении нового друга. "
                            "Вновь прочитать уже читанную книгу — значит вновь увидеть старого друга.\n"
                            "Вольтер.")
-        self.quote.setFont(PyQt6.QtGui.QFont("Times new roman", 14))
+        self.quote.setFont(Program.Constrains.DEFAULT_CONSTRAINS.supFont)
 
         self.initUI()
 

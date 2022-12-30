@@ -1,5 +1,8 @@
 from PyQt6 import QtWidgets, QtGui, QtCore
 from PyQt6.QtCore import QUrl
+from PyQt6.QtWidgets import QSizePolicy
+
+import Program.Constrains
 
 from Program.Networking import NETWORK_MANAGER
 
@@ -21,18 +24,23 @@ class AutherElement(QtWidgets.QWidget):
         self.name = QtWidgets.QLabel()
         self.name.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.name.setText(self.properties.get('name') + ' ' + self.properties.get('surname'))
-        self.font = QtGui.QFont("Times new roman", 16)
-        self.name.setFont(self.font)
+        self.font = Program.Constrains.DEFAULT_CONSTRAINS.mainFont
+        self.name.setFont(Program.Constrains.DEFAULT_CONSTRAINS.titleBoldFont)
+        self.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
+        self.name.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
 
-        self.picture = self.initPicture()
+        self.picture = self.initPicture(300, 400)
 
         self.annotation = QtWidgets.QTextBrowser()
         self.annotation.setText('Описание: ' + self.properties.get('description'))
+        self.annotation.setMinimumWidth(500)
         self.annotation.setAlignment(QtCore.Qt.AlignmentFlag.AlignJustify)
-        self.annotation.setFont(QtGui.QFont("Times new roman", 16))
+        self.annotation.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
+        self.annotation.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
 
         self.button = QtWidgets.QPushButton('Перейти к личной странице')
-        self.button.setFont(QtGui.QFont("Times new roman", 12))
+        self.button.setFont(Program.Constrains.DEFAULT_CONSTRAINS.buttonsFont)
+        self.button.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
 
         # Лейауты
         self.mainLayout = QtWidgets.QVBoxLayout()
@@ -45,9 +53,9 @@ class AutherElement(QtWidgets.QWidget):
     def initButton(self, f):
         self.button.clicked.connect(lambda: f(self.properties['slug']))
 
-    def initPicture(self) -> QtWidgets.QLabel:
+    def initPicture(self, x, y) -> QtWidgets.QLabel:
         picture = QtWidgets.QLabel()
-        picture.setMaximumSize(100, 200)
+        picture.setFixedSize(x, y)
         if self.properties['image'] is None:
             picture.setPixmap(QtGui.QPixmap('./Images/undefined.png').scaled(100, 100))
         else:
@@ -56,6 +64,8 @@ class AutherElement(QtWidgets.QWidget):
 
             pixmap = pixmap.scaled(picture.size())
             picture.setPixmap(pixmap)
+
+
             #picture.setPixmap(QtGui.QPixmap('./Images/undefined.png'))  # todo Масштабирование бы поправить
 
 
@@ -75,3 +85,4 @@ class AutherElement(QtWidgets.QWidget):
 
         self.mainHLayout.addLayout(self.mainLayout)
         self.mainHLayout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+

@@ -1,6 +1,6 @@
 from PyQt6 import QtGui, QtCore, QtWidgets
 from PyQt6.QtCore import QUrl
-from PyQt6.QtGui import QFont, QCursor
+import Program.Constrains
 import PyQt6.QtGui
 
 from API.apps import Users
@@ -26,15 +26,15 @@ class UserComponent(QtWidgets.QWidget):
             self.image = QtGui.QPixmap.fromImage(image)
 
         self.buttonUser = QtWidgets.QPushButton("User")
-        self.buttonUser.setFont(QFont('Times new roman', 12))
+        self.buttonUser.setFont(Program.Constrains.DEFAULT_CONSTRAINS.buttonsFont)
         self.buttonUser.setCursor(curs)
 
         self.buttonBooks = QtWidgets.QPushButton("Книжная полка")
-        self.buttonBooks.setFont(QFont('Times new roman', 12))
+        self.buttonBooks.setFont(Program.Constrains.DEFAULT_CONSTRAINS.buttonsFont)
         self.buttonBooks.setCursor(curs)
 
         self.buttonExit = QtWidgets.QPushButton("Выйти")
-        self.buttonExit.setFont(QFont('Times new roman', 12))
+        self.buttonExit.setFont(Program.Constrains.DEFAULT_CONSTRAINS.buttonsFont)
         self.buttonExit.setCursor(curs)
 
         self.vline = VLine(10, 50)

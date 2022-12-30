@@ -1,5 +1,6 @@
 from PyQt6 import QtGui
-from PyQt6.QtWidgets import QListWidget, QVBoxLayout, QTextBrowser, QAbstractItemView, QSizePolicy
+from PyQt6.QtGui import QColor
+from PyQt6.QtWidgets import QListWidget, QVBoxLayout, QTextBrowser, QAbstractItemView, QSizePolicy, QStyle
 import Program.Constrains
 
 class AuthorBookList(QListWidget):
@@ -9,7 +10,7 @@ class AuthorBookList(QListWidget):
         self.vl = QVBoxLayout(self)
         self.list = QListWidget()
         self.list.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
-        self.list.setFont(QtGui.QFont("Times new roman", 16))
+        self.list.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.vl.addWidget(self.list)
         self.books = []
         integer = 1
@@ -21,9 +22,10 @@ class AuthorBookList(QListWidget):
 
         self.text = QTextBrowser()
         self.text.setText('Книги автора доступные в библиотеке:')
+        self.text.setStyleSheet("background-color: rgba(200, 250, 255, .5);")
         self.text.setMaximumHeight(50)
         self.text.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Maximum)
-        self.text.setFont(QtGui.QFont("Times new roman", 16))
+        self.text.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.initGI()
 
     def initGI(self):

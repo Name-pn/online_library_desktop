@@ -1,6 +1,7 @@
 from PyQt6 import QtGui, QtWidgets, QtCore
 from PyQt6.QtCore import QUrl
 from PyQt6.QtWidgets import QLayout, QLabel
+import Program.Constrains
 
 from API.apps import Authors, Users
 from Program.Networking import NETWORK_MANAGER
@@ -23,25 +24,26 @@ class PrivatePageComponent(QtWidgets.QWidget):
         self.name = QLabel()
         self.name.setText(name)
 
-        self.name.setFont(QtGui.QFont("Times new roman", 20))
+        self.name.setFont(Program.Constrains.DEFAULT_CONSTRAINS.titleFont)
         self.name.setSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Preferred)
         if imageUrl is None:
             self.picture = ScaledPicture('./Images/undefined.png')
         else:
             image = NETWORK_MANAGER.httpGetImage(QUrl(imageUrl))
             self.picture = ScaledPicture('', image)
-        self.picture.setBaseSize(200, 100)
+
+        self.picture.setFixedSize(200, 250)
         self.picture.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Preferred)
         self.mail = QtWidgets.QTextEdit('Электронная почта пользователя: ' + mail)
         self.mail.setAlignment(QtCore.Qt.AlignmentFlag.AlignJustify)
         self.mail.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Maximum)
-        self.mail.setFont(QtGui.QFont("Times new roman", 16))
+        self.mail.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         if staff:
             self.staff = QtWidgets.QTextEdit('Роль пользователя: администратор')
         else:
             self.staff = QtWidgets.QTextEdit('Роль пользователя: читатель')
         self.staff.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Maximum)
-        self.staff.setFont(QtGui.QFont("Times new roman", 16))
+        self.staff.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.initUI()
 
     def initUI(self):

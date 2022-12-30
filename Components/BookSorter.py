@@ -1,10 +1,9 @@
 from PyQt6 import QtGui, QtCore
-from PyQt6.QtCore import Qt, QObject
+from PyQt6.QtCore import Qt, QObject, QDate
 from PyQt6.QtWidgets import QWidget, QListWidget, QDateEdit, QVBoxLayout, QDateTimeEdit, QComboBox, QTextBrowser, \
-    QStackedWidget, QTextEdit, QPushButton, QSizePolicy, QListWidgetItem, QHBoxLayout, QAbstractItemView
+    QStackedWidget, QTextEdit, QPushButton, QSizePolicy, QHBoxLayout, QAbstractItemView
 
 import Program.Constrains
-from API.apps import Genres
 from Components.BookList import TypeUpdateListBook
 from Components.MultiFilter import MultiFilter, myItem
 
@@ -24,6 +23,9 @@ class BookSorter(QWidget):
             i = self.varyes.currentIndex()
             self.stack.setCurrentIndex(i)
 
+        self.commentToTime = QTextBrowser(self)
+        self.commentFromTime = QTextBrowser(self)
+
         self.varyes.currentIndexChanged.connect(stackChange)
         self.list = QListWidget()
         self.timeFrom = QDateEdit()
@@ -41,11 +43,17 @@ class BookSorter(QWidget):
     def initGI(self):
         self.text.setText('Панель фильтров')
         self.text.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        self.text.setFont(QtGui.QFont("Times new roman", 16))
+        self.text.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.button.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
-        self.varyes.setFont(QtGui.QFont("Times new roman", 16))
-        self.button.setFont(QtGui.QFont("Times new roman", 16))
-        self.textInput.setFont(QtGui.QFont("Times new roman", 16))
+        self.varyes.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
+        self.button.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
+        self.textInput.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
+        self.commentToTime.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
+        self.commentFromTime.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
+        self.commentToTime.setText('Заканчивая годом')
+        self.commentToTime.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Maximum)
+        self.commentFromTime.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Maximum)
+        self.commentFromTime.setText('Начиная с года')
 
         self.vl.addWidget(self.text)
         self.vl.addWidget(self.varyes)
@@ -54,12 +62,18 @@ class BookSorter(QWidget):
 
         self.timeW = QWidget()
         self.timeHL = QHBoxLayout()
-        self.timeHL.addWidget(self.timeFrom)
-        self.timeHL.addWidget(self.timeTo)
+        self.timeVL1 = QVBoxLayout()
+        self.timeVL2 = QVBoxLayout()
+        self.timeVL1.addWidget(self.commentFromTime)
+        self.timeVL1.addWidget(self.timeFrom)
+        self.timeHL.addLayout(self.timeVL1)
+        self.timeVL2.addWidget(self.commentToTime)
+        self.timeVL2.addWidget(self.timeTo)
+        self.timeHL.addLayout(self.timeVL2)
         self.timeW.setLayout(self.timeHL)
 
         self.varyes.addItem('По жанрам')
-        self.varyes.addItem('По временному промежутку')
+        self.varyes.addItem('По году издания')
         self.varyes.addItem('По автору')
         self.varyes.addItem('Расширенный фильтр')
 
@@ -69,16 +83,18 @@ class BookSorter(QWidget):
         self.stack.addWidget(self.multi)
 
         self.timeFrom.setCurrentSection(QDateTimeEdit.Section.YearSection)
-        self.timeFrom.setDisplayFormat('yyyy год')
-        self.timeFrom.setFont(QtGui.QFont("Times new roman", 16))
+        self.timeFrom.setDisplayFormat('yyyy')
+        self.timeFrom.setDate(QDate(1990, 1, 1))
+        self.timeFrom.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.timeFrom.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
 
         self.timeTo.setCurrentSection(QDateTimeEdit.Section.YearSection)
-        self.timeTo.setDisplayFormat('yyyy год')
-        self.timeTo.setFont(QtGui.QFont("Times new roman", 16))
+        self.timeTo.setDisplayFormat('yyyy')
+        self.timeTo.setDate(QDate(2010, 1, 1))
+        self.timeTo.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.timeTo.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
 
-        self.list.setFont(QtGui.QFont("Times new roman", 16))
+        self.list.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.list.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         self.list.setSortingEnabled(True)
         self.list.setSelectionMode(QAbstractItemView.SelectionMode.MultiSelection)

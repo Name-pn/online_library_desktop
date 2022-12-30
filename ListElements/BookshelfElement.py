@@ -1,7 +1,7 @@
 import PyQt6
 from PyQt6 import QtWidgets, QtGui, QtCore
 from PyQt6.QtCore import QUrl
-from PyQt6.QtWidgets import QSizePolicy
+import Program.Constrains
 
 from API.apps import Authors
 from Program.Networking import NETWORK_MANAGER
@@ -25,29 +25,29 @@ class BookshelfElement(QtWidgets.QWidget):
         self.name = QtWidgets.QLabel()
         self.name.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.name.setText(self.properties.get('title'))
-        self.font = QtGui.QFont("Times new roman", 20)
+        self.font = Program.Constrains.DEFAULT_CONSTRAINS.titleFont
         self.name.setFont(self.font)
 
         self.picture = self.initPicture()
 
         self.authorName = self.initAuthorNameLabel()
-        self.authorName.setFont(QtGui.QFont("Times new roman", 16))
+        self.authorName.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
 
         self.genres = self.initGenres()
-        self.genres.setFont(QtGui.QFont("Times new roman", 16))
+        self.genres.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
 
         self.date = QtWidgets.QLabel()
         self.date.setText('Год выпуска: ' + str(self.properties.get('year_of_writing')))
-        self.date.setFont(QtGui.QFont("Times new roman", 16))
+        self.date.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
 
         self.buttonToRead = QtWidgets.QPushButton('К тексту книги')
-        self.buttonToRead.setFont(QtGui.QFont("Times new roman", 12))
+        self.buttonToRead.setFont(Program.Constrains.DEFAULT_CONSTRAINS.buttonsFont)
 
         self.buttonToDetails = QtWidgets.QPushButton('К описанию')
-        self.buttonToDetails.setFont(QtGui.QFont("Times new roman", 12))
+        self.buttonToDetails.setFont(Program.Constrains.DEFAULT_CONSTRAINS.buttonsFont)
 
         self.buttonRemove = QtWidgets.QPushButton('Убрать с книжной полки')
-        self.buttonRemove.setFont(QtGui.QFont("Times new roman", 12))
+        self.buttonRemove.setFont(Program.Constrains.DEFAULT_CONSTRAINS.buttonsFont)
 
         # Лейауты
         self.mainLayout = QtWidgets.QVBoxLayout()

@@ -3,6 +3,7 @@ from PyQt6 import QtCore, QtWidgets
 from PyQt6.QtGui import QFont
 from PyQt6.QtGui import QCursor
 
+import Program.Constrains
 from Components.VLine import VLine
 
 
@@ -16,19 +17,22 @@ class RefComponent(QtWidgets.QWidget):
         curs.setShape(PyQt6.QtCore.Qt.CursorShape.PointingHandCursor)
 
         self.main = QtWidgets.QPushButton("Главная")
-        self.main.setFont(QFont('Times new roman', 12))
+        self.main.setFont(Program.Constrains.DEFAULT_CONSTRAINS.buttonsFont)
         self.main.setCursor(curs)
 
         self.vline1 = VLine(10, 20)
 
         self.books = QtWidgets.QPushButton("Книги")
-        self.books.setFont(QFont('Times new roman', 12))
+        self.books.setFont(Program.Constrains.DEFAULT_CONSTRAINS.buttonsFont)
         self.books.setCursor(curs)
 
         self.vline2 = VLine(10, 20)
 
         self.authers = QtWidgets.QPushButton("Авторы")
-        self.authers.setFont(QFont('Times new roman', 12))
+        self.authers.setFont(Program.Constrains.DEFAULT_CONSTRAINS.buttonsFont)
+
+        #QFont('Times new roman', 20)
+        #Program.Constrains.DEFAULT_CONSTRAINS.mainFont
         self.authers.setCursor(curs)
 
         self.initUI()

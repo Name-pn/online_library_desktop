@@ -1,7 +1,7 @@
 from enum import Enum
 
 from PyQt6 import QtGui, QtWidgets, QtCore
-from PyQt6.QtWidgets import QLayout, QSizePolicy
+from PyQt6.QtWidgets import QLayout, QSizePolicy, QVBoxLayout
 import Program.Constrains
 from API.apps import Books
 from ListElements.BookElement import BookElement
@@ -17,8 +17,9 @@ class BookListComponent(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.f = None
+        self.mainVL = QVBoxLayout(self)
         self.scrollArea = QtWidgets.QScrollArea()
-        self.scrollArea.setParent(self)
+        self.mainVL.addWidget(self.scrollArea)
         self.scrollArea.setWidgetResizable(True)
         self.array = []
         self.mainLayout = self.initLayout()
@@ -41,7 +42,7 @@ class BookListComponent(QtWidgets.QWidget):
             name = Program.Constrains.DEFAULT_CONSTRAINS.table.table.get(name)
             if name is None:
                 name = ''
-            for book_properties in Books.get_filter(genres, name, time.split(' ')[0], time.split(' ')[2]):
+            for book_properties in Books.get_filter(genres, name, time.split(' ')[1], time.split(' ')[4]):
                 el = BookElement(book_properties)
                 self.array.append(el)
                 el.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
@@ -55,7 +56,7 @@ class BookListComponent(QtWidgets.QWidget):
                 el.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
                 self.mainLayout.addWidget(el)
         elif mode == TypeUpdateListBook.AUTHOR:
-            key = Program.Constrains.DEFAULT_CONSTRAINS.table.table.get(key)
+            key = Program.Constrains.DEFAULT_CONSTRAINS.table.get(key)
             if key is not None:
                 for book_properties in Books.get_filter(author=key):
                     el = BookElement(book_properties)
@@ -64,7 +65,7 @@ class BookListComponent(QtWidgets.QWidget):
                     self.mainLayout.addWidget(el)
         else:
             if mode == TypeUpdateListBook.DATE:
-                for book_properties in Books.get_filter(year_of_writing_min=key.split(' ')[0], year_of_writing_max=key.split(' ')[2]):
+                for book_properties in Books.get_filter(year_of_writing_min=key.split(' ')[1], year_of_writing_max=key.split(' ')[4]):
                     el = BookElement(book_properties)
                     self.array.append(el)
                     el.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
@@ -84,13 +85,9 @@ class BookListComponent(QtWidgets.QWidget):
 
         return layout
 
-    def paintEvent(self, a0: QtGui.QPaintEvent):
-        self.scrollArea.setFixedSize(self.size())
-
     def initUI(self):
         self.scrollArea.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.scrollArea.setWidget(self.content)
-        self.setMinimumSize(self.scrollArea.size())
 
     def initButtons(self, f):
         if self.f == None:

@@ -1,5 +1,5 @@
-from PyQt6 import QtGui, QtWidgets, QtCore
-from PyQt6.QtWidgets import QLayout
+from PyQt6 import QtWidgets, QtCore
+from PyQt6.QtWidgets import QLayout, QVBoxLayout, QSizePolicy
 
 from API.apps import Authors
 from ListElements.AuthorElement import AutherElement
@@ -8,9 +8,10 @@ class AuthorListComponent(QtWidgets.QWidget):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.scrollArea = QtWidgets.QScrollArea()
-        self.scrollArea.setParent(self)
+        self.lv = QVBoxLayout(self)
 
+        self.scrollArea = QtWidgets.QScrollArea()
+        self.lv.addWidget(self.scrollArea)
         self.content = QtWidgets.QWidget()
 
         self.array = []
@@ -24,6 +25,7 @@ class AuthorListComponent(QtWidgets.QWidget):
 
         for auther_properties in Authors.get_all():
             el = AutherElement(auther_properties)
+            el.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
             layout.addWidget(el)
             self.array.append(el)
 
@@ -33,10 +35,6 @@ class AuthorListComponent(QtWidgets.QWidget):
         for el in self.array:
             el.initButton(f)
 
-    def paintEvent(self, a0: QtGui.QPaintEvent):
-        self.scrollArea.setFixedSize(self.size())
-
     def initUI(self):
         self.scrollArea.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.scrollArea.setWidget(self.content)
-        self.setMinimumSize(self.scrollArea.size())

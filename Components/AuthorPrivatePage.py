@@ -1,6 +1,7 @@
 from PyQt6 import QtGui, QtWidgets, QtCore
 from PyQt6.QtCore import QUrl
 from PyQt6.QtWidgets import QLayout, QLabel
+import Program.Constrains
 
 from API.apps import Authors
 from Program.Networking import NETWORK_MANAGER
@@ -22,17 +23,18 @@ class AuthorPrivatePageComponent(QtWidgets.QWidget):
         self.name = QLabel()
         self.name.setText(name)
 
-        self.name.setFont(QtGui.QFont("Times new roman", 20))
+        self.name.setFont(Program.Constrains.DEFAULT_CONSTRAINS.titleFont)
         self.name.setSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
         if imageUrl is None:
             self.picture = ScaledPicture('./Images/undefined.png')
         else:
             image = NETWORK_MANAGER.httpGetImage(QUrl(imageUrl))
             self.picture = ScaledPicture('', image)
+        self.picture.setFixedSize(300, 400)
         self.descriptionText = QtWidgets.QTextEdit(author.get('description'))
         self.descriptionText.setAlignment(QtCore.Qt.AlignmentFlag.AlignJustify)
         self.descriptionText.setSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
-        self.descriptionText.setFont(QtGui.QFont("Times new roman", 16))
+        self.descriptionText.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.list = AuthorBookList(author['slug'])
         self.initUI()
 

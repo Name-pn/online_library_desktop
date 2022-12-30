@@ -3,7 +3,7 @@ from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QWidget, QListWidget, QAbstractItemView, QScrollArea, QSizePolicy, QVBoxLayout, \
     QLabel, QListWidgetItem, QTextBrowser, QTextEdit, QHBoxLayout, QPushButton
-
+import Program.Constrains
 import API.apps
 
 class CommentItem(QListWidgetItem):
@@ -39,11 +39,11 @@ class Comments(QWidget):
 
     def initUI(self):
         self.name.setText('Комментарии')
-        self.name.setFont(QtGui.QFont("Times new roman", 16))
+        self.name.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.list.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
         self.list.setTextElideMode(Qt.TextElideMode.ElideNone)
         self.list.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
-        self.list.setFont(QtGui.QFont("Times new roman", 16))
+        self.list.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.list.setIconSize(QSize(50, 50))
         self.iconGreen = QIcon('./Images/ComLabelGreen.png')
         self.iconYellow = QIcon('./Images/ComLabelYellow.png')
@@ -89,21 +89,21 @@ class Comments(QWidget):
         self.postVL3 = QVBoxLayout()
 
         self.button = QPushButton('Отправить комментарий')
-        self.button.setFont(QtGui.QFont("Times new roman", 16))
+        self.button.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
 
         self.postText = QTextBrowser()
-        self.postText.setFont(QtGui.QFont("Times new roman", 16))
+        self.postText.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.postText.setText('Введите текст вашего комметария: ')
 
         self.postScore = QTextBrowser()
-        self.postScore.setFont(QtGui.QFont("Times new roman", 16))
+        self.postScore.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.postScore.setText('Введите вашу оценку: ')
 
         self.postEditText = QTextEdit()
-        self.postEditText.setFont(QtGui.QFont("Times new roman", 16))
+        self.postEditText.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
 
         self.postEditScore = QTextEdit()
-        self.postEditScore.setFont(QtGui.QFont("Times new roman", 16))
+        self.postEditScore.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
 
         self.postVL1.addWidget(self.postText)
         self.postVL1.addWidget(self.postScore)
@@ -128,7 +128,7 @@ class Comments(QWidget):
         self.list.setSelectionMode(QAbstractItemView.SelectionMode.MultiSelection)
         self.deleteButton = QPushButton('Удалить выделенные комментарии')
         self.deleteButton.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
-        self.deleteButton.setFont(QtGui.QFont("Times new roman", 16))
+        self.deleteButton.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.postVL3.addWidget(self.deleteButton)
 
         self.deleteButton.clicked.connect(lambda: self.deleteComments())

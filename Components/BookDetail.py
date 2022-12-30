@@ -1,6 +1,7 @@
-from PyQt6 import QtGui, QtWidgets, QtCore
-from PyQt6.QtCore import QUrl, Qt
-from PyQt6.QtWidgets import QLayout, QLabel, QSizePolicy
+from PyQt6 import QtWidgets, QtCore
+from PyQt6.QtCore import QUrl
+from PyQt6.QtWidgets import QLabel, QSizePolicy
+import Program.Constrains
 
 import Components.Comments
 from API.apps import Books, Authors, Users, UserTypes
@@ -22,23 +23,24 @@ class BookDetailComponent(QtWidgets.QWidget):
             image = NETWORK_MANAGER.httpGetImage(QUrl(imageUrl))
             self.picture = ScaledPicture('', image)
         self.picture.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
+        self.picture.setFixedSize(350, 500)
         self.vl = QtWidgets.QVBoxLayout(self)
         self.hlSup = QtWidgets.QHBoxLayout()
         self.vlSup = QtWidgets.QVBoxLayout()
         self.name = QLabel()
         self.name.setText(name)
 
-        self.name.setFont(QtGui.QFont("Times new roman", 20))
+        self.name.setFont(Program.Constrains.DEFAULT_CONSTRAINS.titleFont)
         self.name.setSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
 
         self.characters1 = QtWidgets.QTextBrowser()
         self.characters1.setText('Год написания: ' + str(self.book.get('year_of_writing')) + '\n' +
                                                'Автор: ' + author['name'] + ' ' + author['surname'])
         self.characters1.setSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
-        self.characters1.setFont(QtGui.QFont("Times new roman", 16))
+        self.characters1.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.descriptionText = QtWidgets.QTextBrowser()
         self.descriptionText.setText(self.book.get('description'))
-        self.descriptionText.setFont(QtGui.QFont("Times new roman", 16))
+        self.descriptionText.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
         self.descriptionText.setAlignment(QtCore.Qt.AlignmentFlag.AlignJustify)
         self.descriptionText.setSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Minimum)
         self.user = Users.get_user_type()
@@ -58,7 +60,7 @@ class BookDetailComponent(QtWidgets.QWidget):
 
         if self.user != UserTypes.GUEST:
             self.button = QtWidgets.QPushButton('Добавить на книжную полку')
-            self.button.setFont(QtGui.QFont("Times new roman", 16))
+            self.button.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
             self.vlSup.addWidget(self.button)
 
         self.vl.addWidget(self.comments)

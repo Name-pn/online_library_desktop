@@ -1,4 +1,3 @@
-from PyQt6.QtWidgets import QSizePolicy
 from requests import HTTPError
 from API.apps import Auth, Users, UserTypes, Books, Readings
 from PyQt6 import QtGui, QtWidgets
@@ -122,13 +121,6 @@ class MainWidget(QtWidgets.QWidget):
 
     def reinitTopComponent(self):
         self.reinitStack()
-        #self.vl.removeWidget(self.stack)
-        #index = self.stack.currentIndex()
-        #self.stack = QtWidgets.QStackedWidget()
-        #self.initStack()
-
-        #self.stack.setCurrentIndex(index)
-        #self.vl.addWidget(self.stack)
         self.update()
 
     def runLogin(self):

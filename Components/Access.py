@@ -1,6 +1,7 @@
 import PyQt6.QtCore
 import PyQt6.QtGui
 import PyQt6.QtWidgets
+import Program.Constrains
 from PyQt6 import QtGui
 
 
@@ -15,7 +16,7 @@ class AccessComponent(PyQt6.QtWidgets.QWidget):
         self.vlRight = PyQt6.QtWidgets.QVBoxLayout()
 
         self.enterToSyte = PyQt6.QtWidgets.QPushButton("Войти")
-        self.enterToSyte.setFont(QtGui.QFont("Times new roman", 12))
+        self.enterToSyte.setFont(Program.Constrains.DEFAULT_CONSTRAINS.buttonsFont)
 
         self.nameLabel = PyQt6.QtWidgets.QTextEdit("")
         self.passwordLabel = PyQt6.QtWidgets.QTextEdit("")
@@ -34,14 +35,14 @@ class AccessComponent(PyQt6.QtWidgets.QWidget):
         self.passwordLabel.setAlignment(PyQt6.QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.statusOutput.setAlignment(PyQt6.QtCore.Qt.AlignmentFlag.AlignHCenter)
 
-        self.nameLabel.setFont(QtGui.QFont("Times new roman", 16))
-        self.statusLabel.setFont(QtGui.QFont("Times new roman", 16))
+        self.nameLabel.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
+        self.statusLabel.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
 
-        self.nameInput.setFont(QtGui.QFont("Times new roman", 16))
-        self.passwordInput.setFont(QtGui.QFont("Times new roman", 16))
+        self.nameInput.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
+        self.passwordInput.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
 
-        self.passwordLabel.setFont(QtGui.QFont("Times new roman", 16))
-        self.statusOutput.setFont(QtGui.QFont("Times new roman", 16))
+        self.passwordLabel.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
+        self.statusOutput.setFont(Program.Constrains.DEFAULT_CONSTRAINS.mainFont)
 
         self.initUI()
 

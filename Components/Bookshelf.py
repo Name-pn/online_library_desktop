@@ -53,9 +53,6 @@ class BookshelfComponent(QtWidgets.QWidget):
     def removeW(self, el):
         el.deleteLater()
         self.mainLayout.removeWidget(el)
-        self.mainLayout.update()
-        self.content.update()
-        self.scrollArea.update()
         self.update()
 
     def initButtonsToRemove(self, f):
@@ -65,4 +62,3 @@ class BookshelfComponent(QtWidgets.QWidget):
     def initButtonsToDetails(self, f):
         for el in self.array:
             el.initButtonToDetails(f)
-
